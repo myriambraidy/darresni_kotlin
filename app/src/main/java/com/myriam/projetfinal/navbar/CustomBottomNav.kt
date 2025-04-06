@@ -71,13 +71,13 @@ fun CustomBottomNav(navController: NavController, tabs: List<TabItem>) {
                                 restoreState = true
                             }
                         }
-                        .padding(vertical = 8.dp)
+//                        .padding(vertical = 8.dp)
                 ) {
                     Icon(
                         tab.icon,
                         contentDescription = tab.title,
                         tint = if (isSelected) tab.color else Color.Gray,
-                        modifier = Modifier.size(if (isSelected) 28.dp else 24.dp)
+                        modifier = Modifier.size( 28.dp )
                     )
                     Text(
                         tab.title,
