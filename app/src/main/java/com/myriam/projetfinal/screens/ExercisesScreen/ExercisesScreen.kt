@@ -24,7 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.*
 import androidx.compose.ui.Alignment
-
+import com.myriam.projetfinal.Exercise.ExerciseScreen
 
 @Composable
 fun ExercisesScreen() {
@@ -33,7 +33,8 @@ fun ExercisesScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .statusBarsPadding(),
+            .statusBarsPadding()
+            .padding(horizontal = 16.dp),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth()
@@ -53,10 +54,7 @@ fun ExercisesScreen() {
                 contentDescription = "Fire Icon",
                 modifier = Modifier.size(30.dp)
             )
-
-
         }
-
         Divider(
             modifier = Modifier.padding(horizontal = 16.dp),
             thickness = 1.dp
@@ -64,6 +62,8 @@ fun ExercisesScreen() {
         SearchBar(
             query = searchQuery,
             onQueryChange = { searchQuery = it }
-        )    }
+        )
+        ExerciseScreen()
+    }
 
 }

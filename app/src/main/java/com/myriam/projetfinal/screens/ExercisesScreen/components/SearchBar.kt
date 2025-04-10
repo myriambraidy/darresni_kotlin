@@ -45,7 +45,6 @@ fun SearchBar(
                     )
                 }
             }
-
         },
         modifier = modifier
             .fillMaxWidth()
