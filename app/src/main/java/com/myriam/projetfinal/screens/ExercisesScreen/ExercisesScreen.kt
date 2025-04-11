@@ -24,10 +24,32 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.*
 import androidx.compose.ui.Alignment
-import com.myriam.projetfinal.Exercise.ExerciseScreen
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.myriam.projetfinal.Exercise.ExerciseDetailScreen
+import com.myriam.projetfinal.Exercise.ExerciseList
+import com.myriam.projetfinal.Exercise.ExerciseViewModel
 
 @Composable
-fun ExercisesScreen() {
+fun ExercisesScreen(exerciseViewModel: ExerciseViewModel) {
+    val navController = rememberNavController()
+    val viewmodel = ExerciseViewModel()
+
+    NavHost(navController, startDestination = "exercises"){
+        composable("exercises") {
+            ExerciseMainContent(vm = viewmodel, nav = navController)
+        }
+        composable("exercise_details") {
+            ExerciseDetailScreen(vm = viewmodel, navController = navController)
+        }
+    }
+
+}
+
+@Composable
+fun ExerciseMainContent(vm: ExerciseViewModel, nav: NavController) {
     var searchQuery by remember { mutableStateOf("") }
 
     Column(
@@ -38,7 +60,7 @@ fun ExercisesScreen() {
     ) {
         Row(
             modifier = Modifier.fillMaxWidth()
-            .padding(horizontal = 16.dp),
+                .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -61,9 +83,9 @@ fun ExercisesScreen() {
         )
         SearchBar(
             query = searchQuery,
-            onQueryChange = { searchQuery = it }
+            onQueryChange = { searchQuery = it
+                vm.filterExercises(it)}
         )
-        ExerciseScreen()
+        ExerciseList(viewModel = vm, navController = nav)
     }
-
 }

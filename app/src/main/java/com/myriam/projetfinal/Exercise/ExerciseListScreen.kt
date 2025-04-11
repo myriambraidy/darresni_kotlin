@@ -7,9 +7,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 
 @Composable
-fun ExerciseScreen(viewModel: ExerciseViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
+fun ExerciseList(
+    viewModel: ExerciseViewModel = viewModel(),
+    navController: NavController
+) {
     val exercises by viewModel.exercises.observeAsState(emptyList())
 
     LazyColumn {
@@ -20,7 +24,11 @@ fun ExerciseScreen(viewModel: ExerciseViewModel = androidx.lifecycle.viewmodel.c
                 description = exercise.description,
                 id = exercise.id,
                 starsPainter = painterResource(id = exercise.starsRes),
-                colors = exercise.colors
+                colors = exercise.colors,
+                onClick = {
+                    navController.navigate("exercise_details")
+                    viewModel.selectedExercise = exercise
+                }
             )
         }
     }
