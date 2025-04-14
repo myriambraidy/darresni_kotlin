@@ -28,7 +28,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.myriam.projetfinal.Exercise.ExerciseDetailScreen
 import com.myriam.projetfinal.Exercise.ExerciseList
 import com.myriam.projetfinal.Exercise.ExerciseViewModel
 

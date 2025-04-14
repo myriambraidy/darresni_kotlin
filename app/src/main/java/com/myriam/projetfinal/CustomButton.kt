@@ -47,7 +47,7 @@ fun CustomButton(
 
         ButtonVariant.Destructive -> ButtonDefaults.buttonColors(
             containerColor = colorTheme.primary,
-            contentColor = colorTheme.onPrimary
+            contentColor = colorTheme.onSecondary
         )
 
         ButtonVariant.Outline -> ButtonDefaults.outlinedButtonColors(

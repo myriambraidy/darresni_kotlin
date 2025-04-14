@@ -1,4 +1,6 @@
-package com.myriam.projetfinal.Exercise
+package com.myriam.projetfinal.DailyChallenge
+
+import com.myriam.projetfinal.Exercise.Exercise
 
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.MutableLiveData
@@ -6,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.myriam.projetfinal.R
 import com.myriam.projetfinal.ui.theme.LightTextSecondaryColor
 
-class ExerciseViewModel : ViewModel() {
+class DailyChallengeViewModel : ViewModel() {
     private val originalExercises = listOf(
         Exercise(
             title = "Java",
@@ -127,21 +129,20 @@ class ExerciseViewModel : ViewModel() {
         )
     )
     val exercises = MutableLiveData<List<Exercise>>()
-    var selectedExercise: Exercise? = null;
-
-    init {
-        exercises.value = originalExercises
+//    var selectedExercise: Exercise? = null;
+//
+//    init {
+//        exercises.value = originalExercises
+//    }
+//
+//    fun filterExercises(query: String) {
+//        val filteredList = if (query.isEmpty()) {
+//            originalExercises
+//        } else {
+//            originalExercises.filter {
+//                it.title.contains(query, ignoreCase = true) ||
+//                        it.description.contains(query, ignoreCase = true)
+//            }
+//        }
+//        exercises.value = filteredList
     }
-
-    fun filterExercises(query: String) {
-        val filteredList = if (query.isEmpty()) {
-            originalExercises
-        } else {
-            originalExercises.filter {
-                it.title.contains(query, ignoreCase = true) ||
-                        it.description.contains(query, ignoreCase = true)
-            }
-        }
-        exercises.value = filteredList
-    }
-}
