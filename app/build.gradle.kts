@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.myriam.projetfinal"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -40,6 +40,7 @@ android {
 }
 
 dependencies {
+    implementation("co.yml:ycharts:2.1.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -50,6 +51,8 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.runtime.livedata)
+    implementation(libs.androidx.storage)
+    implementation(libs.androidx.palette.ktx)
 //    implementation(libs.androidx.navigation.runtime.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
