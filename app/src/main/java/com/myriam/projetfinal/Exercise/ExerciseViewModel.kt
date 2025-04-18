@@ -4,10 +4,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.myriam.projetfinal.R
+import com.myriam.projetfinal.ui.theme.LightBackgroundColor
 import com.myriam.projetfinal.ui.theme.LightTextSecondaryColor
 
 class ExerciseViewModel : ViewModel() {
-    private val originalExercises = listOf(
+    val originalExercises = listOf(
         Exercise(
             title = "Java",
             category = "Explain the error",
@@ -22,7 +23,7 @@ class ExerciseViewModel : ViewModel() {
             imageRes = R.drawable.cpplogo,
             starsRes = R.drawable.fivestars,
             colors = listOf(
-                Color(android.graphics.Color.parseColor("#F0F0F0")),
+                LightBackgroundColor,
                 LightTextSecondaryColor
             )
         ),
@@ -68,6 +69,78 @@ class ExerciseViewModel : ViewModel() {
             )
         ),
 
+        Exercise(
+            title = "Data Structures",
+            category = "Binary Tree Traversal",
+            description = "Implement binary tree traversal in Java.",
+            question = "public class BinaryTree {\n" +
+                    "    static class Node {\n" +
+                    "        int data;\n" +
+                    "        Node left, right;\n" +
+                    "        Node(int item) {\n" +
+                    "            data = item;\n" +
+                    "            left = right = null;\n" +
+                    "        }\n" +
+                    "    }\n" +
+                    "    void inorder(Node root) {\n" +
+                    "        if (root != null) {\n" +
+                    "            inorder(root.left);\n" +
+                    "            System.out.print(root.data + \" \");\n" +
+                    "            inorder(root.right);\n" +
+                    "        }\n" +
+                    "    }\n" +
+                    "    public static void main(String[] args) {\n" +
+                    "        BinaryTree tree = new BinaryTree();\n" +
+                    "        Node root = new Node(1);\n" +
+                    "        root.left = new Node(2);\n" +
+                    "        root.right = new Node(3);\n" +
+                    "        tree.inorder(root);\n" +
+                    "    }\n" +
+                    "}\n",
+            id = "29",
+            imageRes = R.drawable.cpplogo,
+            starsRes = R.drawable.fivestars,
+            colors = listOf(
+                Color(android.graphics.Color.parseColor("#F0F0F0")),
+                Color(android.graphics.Color.parseColor("#737373"))
+            )
+        ),
+        Exercise(
+            title = "Data Structures",
+            category = "Binary Tree Traversal",
+            description = "Implement binary tree traversal in Java.",
+            question = "public class BinaryTree {\n" +
+                    "    static class Node {\n" +
+                    "        int data;\n" +
+                    "        Node left, right;\n" +
+                    "        Node(int item) {\n" +
+                    "            data = item;\n" +
+                    "            left = right = null;\n" +
+                    "        }\n" +
+                    "    }\n" +
+                    "    void inorder(Node root) {\n" +
+                    "        if (root != null) {\n" +
+                    "            inorder(root.left);\n" +
+                    "            System.out.print(root.data + \" \");\n" +
+                    "            inorder(root.right);\n" +
+                    "        }\n" +
+                    "    }\n" +
+                    "    public static void main(String[] args) {\n" +
+                    "        BinaryTree tree = new BinaryTree();\n" +
+                    "        Node root = new Node(1);\n" +
+                    "        root.left = new Node(2);\n" +
+                    "        root.right = new Node(3);\n" +
+                    "        tree.inorder(root);\n" +
+                    "    }\n" +
+                    "}\n",
+            id = "29",
+            imageRes = R.drawable.cpplogo,
+            starsRes = R.drawable.fivestars,
+            colors = listOf(
+                Color(android.graphics.Color.parseColor("#F0F0F0")),
+                Color(android.graphics.Color.parseColor("#737373"))
+            )
+        ),
         Exercise(
             title = "Data Structures",
             category = "Binary Tree Traversal",

@@ -16,6 +16,6 @@ sealed class TabItem(
     val color: Color
 ) {
     object Home : TabItem("Home", "home", Icons.Filled.Home, PrimaryColorGreen)
-    object Exercises : TabItem("Exercises", "Exercises", Icons.Filled.Menu, PrimaryColorGreen)
+    object Exercises : TabItem("Exercises", "all_exercises", Icons.Filled.Menu, PrimaryColorGreen)
     object Profile : TabItem("Profile", "profile", Icons.Filled.Person, PrimaryColorGreen)
 }

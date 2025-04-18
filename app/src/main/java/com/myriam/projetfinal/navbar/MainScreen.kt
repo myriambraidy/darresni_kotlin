@@ -4,6 +4,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.navigation.compose.*
+import com.myriam.projetfinal.DailyChallenge.DailyChallengeViewModel
 import com.myriam.projetfinal.Exercise.ExerciseViewModel
 import com.myriam.projetfinal.screens.ExercisesScreen
 import com.myriam.projetfinal.screens.HomeScreen.HomeScreen
@@ -12,7 +13,8 @@ import com.myriam.projetfinal.screens.ProfileScreen.ProfileScreen
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
-    val viewmodel = ExerciseViewModel()
+    val exerciseVm = ExerciseViewModel()
+    val dailyVm = DailyChallengeViewModel()
     val tabs = listOf(TabItem.Home, TabItem.Exercises, TabItem.Profile)
 
     Scaffold(
@@ -24,7 +26,7 @@ fun MainScreen() {
             modifier = Modifier.padding(paddingValues)
         ) {
             composable(TabItem.Home.route) { HomeScreen() }
-            composable(TabItem.Exercises.route) { ExercisesScreen(exerciseViewModel = viewmodel) }
+            composable(TabItem.Exercises.route) { ExercisesScreen(exerciseViewModel = exerciseVm, dailychallengevm= dailyVm ) }
             composable(TabItem.Profile.route) { ProfileScreen() }
         }
     }

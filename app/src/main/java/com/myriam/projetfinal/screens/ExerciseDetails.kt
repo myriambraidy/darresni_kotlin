@@ -1,62 +1,38 @@
 package com.myriam.projetfinal.screens
 
+import HeaderSection
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.myriam.projetfinal.ButtonVariant
-import com.myriam.projetfinal.CustomButton
 import com.myriam.projetfinal.Exercise.ExerciseViewModel
-import com.myriam.projetfinal.ui.theme.ProjetFinalTheme
 
 @Composable
-fun ExerciseDetailScreen(vm: ExerciseViewModel, navController: NavController) {
-    ProjetFinalTheme {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(24.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = "Details",
-                    fontSize = 32.sp,
-                    fontWeight = FontWeight.Bold
-                )
+fun ExerciseDetailScreen(vm: ExerciseViewModel, nav: NavController) {
 
-                vm.selectedExercise?.title?.let {
-                    Text(
-                        text = it,
-                        fontSize = 32.sp,
-                        fontWeight = FontWeight.Bold
-                    )
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFFF7F7F7))
+            .padding(16.dp)
+            .padding(top = 40.dp)
+            .padding(horizontal = 16.dp)
+
+    ) {
+        vm.selectedExercise?.title?.let {
+            HeaderSection(
+                title = it,
+                showBack = true,
+                onBackClick = {
+                    nav.popBackStack()
                 }
-
-
-            }
-            CustomButton(
-                label = "X",
-                variant = ButtonVariant.Destructive,
-                modifier = Modifier
-                    .padding(top = 16.dp)
-                    .align(Alignment.TopStart),
-                height = 40,
-                width = 50,
-                onClick = { navController.navigate("exercises") }
-
-
-            ) {
-
-            }
+            )
         }
+
+
+
     }
 }
