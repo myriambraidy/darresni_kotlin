@@ -26,7 +26,7 @@ fun ProfileScreen() {
             .padding(top = 40.dp)
             .padding(horizontal = 16.dp)
     ) {
-        HeaderSection(title = "Welcome", icon = Icons.Default.Settings)
+        HeaderSection(title = "Welcome Dev", icon = Icons.Default.Settings)
 
 
     }
