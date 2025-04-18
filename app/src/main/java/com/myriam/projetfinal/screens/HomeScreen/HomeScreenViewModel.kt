@@ -6,7 +6,8 @@ import com.myriam.projetfinal.Exercise.Exercise
 import com.myriam.projetfinal.R
 import com.myriam.projetfinal.ui.theme.LightTextSecondaryColor
 
-class HomeScreenViewModel: ViewModel() {
+class
+HomeScreenViewModel: ViewModel() {
     val devsPick = listOf(
         Exercise(
             title = "Java",

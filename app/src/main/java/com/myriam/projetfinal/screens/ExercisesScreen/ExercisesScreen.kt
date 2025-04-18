@@ -1,5 +1,7 @@
 package com.myriam.projetfinal.screens
 
+import HeaderSection
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -54,32 +57,14 @@ fun ExerciseMainContent(vm: ExerciseViewModel, nav: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .statusBarsPadding()
-            .padding(horizontal = 16.dp),
+            .background(Color(0xFFF7F7F7))
+            .padding(16.dp)
+            .padding(top = 40.dp)
+            .padding(horizontal = 16.dp)
+
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "Exercises",
-                style = MaterialTheme.typography.headlineMedium.copy(
-                    fontWeight = FontWeight.Bold
-                ),
-                modifier = Modifier.padding(start = 0.dp, top = 16.dp, bottom = 4.dp)
-            )
-            Icon(
-                imageVector = Icons.Default.Favorite,
-                contentDescription = "Fire Icon",
-                modifier = Modifier.size(30.dp)
-            )
-        }
-        Divider(
-            modifier = Modifier.padding(horizontal = 16.dp),
-            thickness = 1.dp
-        )
+        HeaderSection(title = "Exercises", icon = Icons.Default.Favorite)
+        Spacer(modifier = Modifier.padding(3.dp))
         SearchBar(
             query = searchQuery,
             onQueryChange = { searchQuery = it

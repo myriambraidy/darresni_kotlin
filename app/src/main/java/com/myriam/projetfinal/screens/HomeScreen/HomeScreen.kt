@@ -1,5 +1,6 @@
 package com.myriam.projetfinal.screens.HomeScreen
 
+import HeaderSection
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -19,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.myriam.projetfinal.Exercise.ExerciseCard
 import com.myriam.projetfinal.screens.HomeScreen.components.GraphSection
-import com.myriam.projetfinal.screens.HomeScreen.components.HeaderSection
 import com.myriam.projetfinal.screens.HomeScreen.components.StreakSection
 
 @Composable
@@ -32,8 +32,9 @@ fun HomeScreen() {
             .background(Color(0xFFF7F7F7))
             .padding(16.dp)
             .padding(top = 40.dp)
+            .padding(horizontal = 16.dp)
     ) {
-        HeaderSection()
+        HeaderSection(title= "Welcome", count = 3)
         Spacer(modifier = Modifier.height(32.dp))
 
         StreakSection()

@@ -1,6 +1,7 @@
 package com.myriam.projetfinal.screens.ExercisesScreen.components
 
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
@@ -48,7 +49,7 @@ fun SearchBar(
         },
         modifier = modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(10.dp),
         shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
     )
 }

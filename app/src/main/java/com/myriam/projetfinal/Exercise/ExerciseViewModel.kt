@@ -64,7 +64,7 @@ class ExerciseViewModel : ViewModel() {
             starsRes = R.drawable.fivestars,
             colors = listOf(
                 Color(android.graphics.Color.parseColor("#F0F0F0")),
-                Color(android.graphics.Color.parseColor("#388E3C"))
+                Color(android.graphics.Color.parseColor("#737373"))
             )
         ),
 
@@ -101,7 +101,7 @@ class ExerciseViewModel : ViewModel() {
             starsRes = R.drawable.fivestars,
             colors = listOf(
                 Color(android.graphics.Color.parseColor("#F0F0F0")),
-                Color(android.graphics.Color.parseColor("#1976D2"))
+                Color(android.graphics.Color.parseColor("#737373"))
             )
         ),
 
@@ -122,7 +122,7 @@ class ExerciseViewModel : ViewModel() {
             starsRes = R.drawable.fivestars,
             colors = listOf(
                 Color(android.graphics.Color.parseColor("#F0F0F0")),
-                Color(android.graphics.Color.parseColor("#E64A19"))
+                Color(android.graphics.Color.parseColor("#737373"))
             )
         )
     )
