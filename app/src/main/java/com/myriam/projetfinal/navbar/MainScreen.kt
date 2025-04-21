@@ -6,8 +6,10 @@ import androidx.compose.ui.*
 import androidx.navigation.compose.*
 import com.myriam.projetfinal.DailyChallenge.DailyChallengeViewModel
 import com.myriam.projetfinal.Exercise.ExerciseViewModel
+import com.myriam.projetfinal.Settings.SettingsScreen
 import com.myriam.projetfinal.screens.ExercisesScreen
 import com.myriam.projetfinal.screens.HomeScreen.HomeScreen
+import com.myriam.projetfinal.screens.ProfileScreen.ProfileNav
 import com.myriam.projetfinal.screens.ProfileScreen.ProfileScreen
 
 @Composable
@@ -27,7 +29,21 @@ fun MainScreen() {
         ) {
             composable(TabItem.Home.route) { HomeScreen() }
             composable(TabItem.Exercises.route) { ExercisesScreen(exerciseViewModel = exerciseVm, dailychallengevm= dailyVm ) }
-            composable(TabItem.Profile.route) { ProfileScreen() }
+            composable(TabItem.Profile.route) {
+                val profileKey = remember { mutableStateOf(System.currentTimeMillis()) }
+
+                // Reset the key every time you come back to Profile tab
+                LaunchedEffect(key1 = navController.currentBackStackEntry?.destination?.route) {
+                    if (navController.currentDestination?.route == TabItem.Profile.route) {
+                        profileKey.value = System.currentTimeMillis()
+                    }
+                }
+
+                key(profileKey.value) {
+                    ProfileNav()
+                }
+            }
+
         }
     }
 }
