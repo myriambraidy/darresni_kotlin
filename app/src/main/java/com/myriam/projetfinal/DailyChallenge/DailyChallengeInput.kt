@@ -1,11 +1,23 @@
 package com.myriam.projetfinal.DailyChallenge
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -17,30 +29,30 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.myriam.projetfinal.ButtonVariant
 import com.myriam.projetfinal.CustomButton
-import com.myriam.projetfinal.Exercise.Exercise
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import com.myriam.projetfinal.CustomTextField
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-fun getCurrentFormattedDate(): String {
-    val today = LocalDate.now()
-    val formatter = DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH)
-    return today.format(formatter)
-}
-
-
 @Composable
-fun DailyChallengeScreen(vm: DailyChallengeViewModel, nav : NavController) {
-    val exercise = vm.getExercise()
+fun DailyChallengeWriteScreen(
+    nav : NavController,
+    code: String,
+    onCodeChange: (String) -> Unit,
+
+) {
+    val showPopup = remember { mutableStateOf(false) }
+
+    fun getCurrentFormattedDate(): String {
+        val today = LocalDate.now()
+        val formatter = DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH)
+        return today.format(formatter)
+    }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFF0F0F0)) // Light background
+            .background(Color(0xFFF5F5F5))
             .padding(24.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -79,6 +91,7 @@ fun DailyChallengeScreen(vm: DailyChallengeViewModel, nav : NavController) {
 
             }
 
+            // Badge
             Box(
                 modifier = Modifier
                     .clip(RoundedCornerShape(8.dp))
@@ -95,52 +108,63 @@ fun DailyChallengeScreen(vm: DailyChallengeViewModel, nav : NavController) {
 
             // Title
             Text(
-                text = exercise.title,
+                text = "Debug and Fix",
                 color = Color.Black,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             )
 
-            // Description
-            Text(
-                text = exercise.description,
-                color = Color.DarkGray,
-                fontSize = 14.sp,
-                lineHeight = 20.sp,
-                textAlign = TextAlign.Center
-            )
-
-            // Code block
+            // Custom Text Field (code input)
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .height(300.dp)
                     .clip(RoundedCornerShape(12.dp))
                     .background(Color(0xFFEFEFEF))
-                    .padding(16.dp)
+                    .padding(top = 4.dp)
             ) {
-                Text(
-                    text = exercise.question,
-                    fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
-                    color = Color.Black,
-                    fontSize = 13.sp,
-                    lineHeight = 18.sp
+                CustomTextField(
+                    label = "Your Answer",
+                    value = code,
+                    onValueChange = onCodeChange,
+                    placeholder = "Write your code or explanation here...",
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(8.dp)
                 )
             }
 
-            CustomButton(
-                label = "Start Writing",
-                onClick = { nav.navigate("startWriting")},
-                width = 250,
-                height = 45,
-                variant = ButtonVariant.Default
-            )
+            // Buttons
+            Column(
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.padding(top = 16.dp)
+            ) {
+                CustomButton(
+                    label = "Back to Text",
+                    onClick = {nav.popBackStack()},
+                    width = 250,
+                    height = 45,
+                    variant = ButtonVariant.Outline
+                )
+                CustomButton(
+                    label = "Submit",
+                    onClick = { showPopup.value = true },
+                    width = 250,
+                    height = 45,
+                    variant = ButtonVariant.Default
+                )
+            }
         }
     }
+
+    if (showPopup.value) {
+        ResultPopup(
+            score = "80%", // you can replace this with dynamic logic
+            explanation = "Good job! You’ve fixed most of the bugs, but some edge cases are still failing." +
+                    "Good job! You’ve fixed most of the bugs, but some edge cases are still failing.",
+            onDismiss = {
+                showPopup.value = false
+            }
+        )
+    }
 }
-
-
-
-
-
-
-
