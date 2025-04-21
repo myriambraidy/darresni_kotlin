@@ -21,7 +21,6 @@ class ProfileScreenViewModel : ViewModel() {
             )
         )
 
-        // Initialize achievements
         val achievements = listOf(
             Achievement(
                 id = "first_program",
