@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -25,7 +26,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.myriam.projetfinal.R
-import com.myriam.projetfinal.screens.ProfileScreen.UserProfile
+import com.myriam.projetfinal.UserProfile.UserProfile
+
 
 @Composable
 fun HeaderSectionProfile(
@@ -81,7 +83,7 @@ fun HeaderSectionProfile(
 
         // Level indicator
         Text(
-            text = "Level ${userProfile.currentLevel}",
+            text = "Level ${userProfile.level}",
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
         )
