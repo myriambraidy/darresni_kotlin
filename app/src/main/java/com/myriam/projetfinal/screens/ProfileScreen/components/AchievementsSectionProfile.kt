@@ -1,32 +1,33 @@
 package com.myriam.projetfinal.screens.ProfileScreen.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.myriam.projetfinal.Achievement.Achievement
-
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.myriam.projetfinal.Achievement.AchievementCard
+import com.myriam.projetfinal.Achievement.AchievementViewModel
 
 @Composable
-fun AchievementsSectionProfile(achievements: List<Achievement>) {
+fun AchievementsSectionProfile(
+    navController: NavController,
+    viewModel: AchievementViewModel = viewModel()
+) {
+    val achievements by viewModel.achievements.observeAsState(emptyList())
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -45,59 +46,18 @@ fun AchievementsSectionProfile(achievements: List<Achievement>) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            achievements.forEach { achievement ->
-                AchievementItem(achievement = achievement)
-                Spacer(modifier = Modifier.height(8.dp))
+            Column {
+                achievements.forEach { achievement ->
+                    AchievementCard(
+                        achievement = achievement,
+                        onClick = {
+                            navController.navigate("achievement_details")
+                            viewModel.selectedAchievement = achievement
+                        }
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
             }
-        }
-    }
-}
-
-@Composable
-fun AchievementItem(achievement: Achievement) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        // Achievement icon
-        Box(
-            modifier = Modifier
-                .size(48.dp)
-                .clip(CircleShape)
-                .background(
-                    if (achievement.isUnlocked) MaterialTheme.colorScheme.primary
-                    else MaterialTheme.colorScheme.surfaceVariant
-                ),
-            contentAlignment = Alignment.Center
-        ) {
-            // In a real app, you would load this from a resource ID
-            Text(
-                text = achievement.title.first().toString(),
-                style = MaterialTheme.typography.titleLarge,
-                color = if (achievement.isUnlocked) MaterialTheme.colorScheme.onPrimary
-                else MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        }
-
-        Spacer(modifier = Modifier.width(16.dp))
-
-        Column {
-            Text(
-                text = achievement.title,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                color = if (achievement.isUnlocked) MaterialTheme.colorScheme.onSurface
-                else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-            )
-
-            Text(
-                text = achievement.description,
-                style = MaterialTheme.typography.bodyMedium,
-                color = if (achievement.isUnlocked) MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
-                else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-            )
         }
     }
 }
