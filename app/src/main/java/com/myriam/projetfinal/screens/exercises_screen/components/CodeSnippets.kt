@@ -1,4 +1,4 @@
-package com.myriam.projetfinal.screens.ExercisesScreen.components
+package com.myriam.projetfinal.screens.exercises_screen.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -7,15 +7,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.myriam.projetfinal.Exercise.Exercise
-import com.myriam.projetfinal.Exercise.ExerciseCard
-import com.myriam.projetfinal.Exercise.ExerciseViewModel
+import com.myriam.projetfinal.exercise.Exercise
+import com.myriam.projetfinal.exercise.ExerciseCard
 
 @Composable
 fun ExosHorizontalScrollSection(exercises: List<Exercise>, nav : NavController) {
@@ -34,9 +31,7 @@ fun ExosHorizontalScrollSection(exercises: List<Exercise>, nav : NavController) 
                         title = exercise.title,
                         description = exercise.description,
                         id = exercise.id,
-                        starsPainter = painterResource(id = exercise.starsRes),
-                        colors = exercise.colors,
-                        accentColor = exercise.colors.first(),
+                        accentColor = exercise.accentColor,
                         onClick = {
 //                            vm.selectedExercise = exercise
 //                            nav.navigate("exercise_details")

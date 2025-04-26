@@ -4,12 +4,12 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.navigation.compose.*
-import com.myriam.projetfinal.DailyChallenge.DailyChallengeViewModel
-import com.myriam.projetfinal.Exercise.ExerciseViewModel
-import com.myriam.projetfinal.screens.HomeScreen.HomeScreen
-import com.myriam.projetfinal.screens.HomeScreen.HomeScreenViewModel
-import com.myriam.projetfinal.screens.MainExercisesScreen
-import com.myriam.projetfinal.screens.ProfileScreen.ProfileScreen
+import com.myriam.projetfinal.daily_challenge.DailyChallengeViewModel
+import com.myriam.projetfinal.exercise.ExerciseViewModel
+import com.myriam.projetfinal.screens.home_screen.HomeScreen
+import com.myriam.projetfinal.screens.home_screen.HomeScreenViewModel
+import com.myriam.projetfinal.exercise.MainExercisesScreen
+import com.myriam.projetfinal.screens.profile_screen.ProfileScreen
 
 @Composable
 fun MainScreen() {
@@ -29,8 +29,8 @@ fun MainScreen() {
         ) {
             composable(TabItem.Home.route) { HomeScreen(vm=homeVm) }
             composable(TabItem.Exercises.route) { MainExercisesScreen(
-                exerciseViewModel = exerciseVm,
-                dailychallengevm = dailyVm
+                vm = exerciseVm,
+                dailyVM = dailyVm
             )  }
             composable(TabItem.Profile.route) { ProfileScreen() }
         }

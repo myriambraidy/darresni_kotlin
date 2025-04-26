@@ -1,6 +1,6 @@
-package com.myriam.projetfinal.screens.HomeScreen
+package com.myriam.projetfinal.screens.home_screen
 
-import HeaderSection
+import SectionTitle
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,16 +17,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.myriam.projetfinal.Exercise.ExerciseCard
-import com.myriam.projetfinal.Exercise.ExerciseViewModel
+import com.myriam.projetfinal.exercise.ExerciseCard
 import com.myriam.projetfinal.screens.ExerciseDetailScreen
-import com.myriam.projetfinal.screens.HomeScreen.components.GraphSection
-import com.myriam.projetfinal.screens.HomeScreen.components.StreakSection
+import com.myriam.projetfinal.screens.home_screen.components.GraphSection
+import com.myriam.projetfinal.screens.home_screen.components.StreakSection
 
 @Composable
 fun HomeScreen(vm: HomeScreenViewModel) {
@@ -54,7 +52,7 @@ fun HomeContent(vm: HomeScreenViewModel, nav: NavController) {
             .padding(top = 40.dp)
             .padding(horizontal = 16.dp)
     ) {
-        HeaderSection(title= "Welcome", count = 3)
+        SectionTitle(title= "Welcome", count = 3)
         Spacer(modifier = Modifier.height(32.dp))
 
         StreakSection()
@@ -76,8 +74,7 @@ fun HomeContent(vm: HomeScreenViewModel, nav: NavController) {
                     title = devpick.title,
                     description = devpick.description,
                     id = devpick.id,
-                    starsPainter = painterResource(id = devpick.starsRes),
-                    colors = devpick.colors,
+                    accentColor = devpick.accentColor,
                     onClick = {
                         vm.selectedDevPick = devpick
                         nav.navigate("devpick_details")

@@ -1,12 +1,9 @@
-package com.myriam.projetfinal.DailyChallenge
+package com.myriam.projetfinal.daily_challenge
 
-import com.myriam.projetfinal.Exercise.Exercise
-
+import com.myriam.projetfinal.exercise.Exercise
 import androidx.compose.ui.graphics.Color
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.myriam.projetfinal.R
-import com.myriam.projetfinal.ui.theme.LightTextSecondaryColor
 
 class DailyChallengeViewModel : ViewModel() {
     private val originalExercises = listOf(
@@ -23,10 +20,7 @@ class DailyChallengeViewModel : ViewModel() {
             id = "43",
             imageRes = R.drawable.cpplogo,
             starsRes = R.drawable.fivestars,
-            colors = listOf(
-                Color(android.graphics.Color.parseColor("#F0F0F0")),
-                LightTextSecondaryColor
-            )
+            accentColor = Color(android.graphics.Color.parseColor("#F0F0F0"))
         )
     )
 
@@ -34,4 +28,3 @@ class DailyChallengeViewModel : ViewModel() {
         return originalExercises.first() // You can update this to return dynamically
     }
 }
-

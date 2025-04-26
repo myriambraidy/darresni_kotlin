@@ -1,4 +1,4 @@
-package com.myriam.projetfinal
+package com.myriam.projetfinal.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*

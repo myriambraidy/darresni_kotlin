@@ -1,11 +1,10 @@
-package com.myriam.projetfinal.screens.HomeScreen
+package com.myriam.projetfinal.screens.home_screen
 
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.myriam.projetfinal.Exercise.Exercise
+import com.myriam.projetfinal.exercise.Exercise
 import com.myriam.projetfinal.R
-import com.myriam.projetfinal.ui.theme.LightTextSecondaryColor
 
 class HomeScreenViewModel: ViewModel() {
     val devsPick = listOf(
@@ -22,10 +21,7 @@ class HomeScreenViewModel: ViewModel() {
             id = "43",
             imageRes = R.drawable.cpplogo,
             starsRes = R.drawable.fivestars,
-            colors = listOf(
-                Color(android.graphics.Color.parseColor("#F0F0F0")),
-                LightTextSecondaryColor
-            )
+            accentColor = Color(android.graphics.Color.parseColor("#F0F0F0"))
         ),
 
         Exercise(
@@ -43,14 +39,11 @@ class HomeScreenViewModel: ViewModel() {
             id = "23",
             imageRes = R.drawable.cpplogo,
             starsRes = R.drawable.fivestars,
-            colors = listOf(
-                Color(android.graphics.Color.parseColor("#00599C")),
-                Color(android.graphics.Color.parseColor("#737373"))
-            )
+            accentColor = Color(android.graphics.Color.parseColor("#00599C"))
         ),
     )
     val devPick = MutableLiveData<List<Exercise>>()
-    var selectedDevPick: Exercise? = null;
+    var selectedDevPick: Exercise? = null
 
     init {
         devPick.value = devsPick
@@ -67,6 +60,4 @@ class HomeScreenViewModel: ViewModel() {
         }
         devPick.value = filteredList
     }
-
-
 }

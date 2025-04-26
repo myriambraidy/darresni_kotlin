@@ -1,5 +1,4 @@
-package com.myriam.projetfinal.Exercise
-
+package com.myriam.projetfinal.exercise
 
 import androidx.compose.ui.graphics.Color
 
@@ -11,5 +10,5 @@ data class Exercise(
     val id: String,
     val imageRes: Int,
     val starsRes: Int,
-    val colors: List<Color>
+    val accentColor: Color
 )

@@ -1,6 +1,6 @@
 package com.myriam.projetfinal.screens
 
-import HeaderSection
+import SectionTitle
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.myriam.projetfinal.Exercise.Exercise
+import com.myriam.projetfinal.exercise.Exercise
 
 @Composable
 fun ExerciseDetailScreen(exo: Exercise, nav: NavController) {
@@ -22,7 +22,7 @@ fun ExerciseDetailScreen(exo: Exercise, nav: NavController) {
             .padding(horizontal = 16.dp)
 
     ) {
-        HeaderSection(
+        SectionTitle(
             title = exo.title,
             showBack = true,
             onBackClick = {

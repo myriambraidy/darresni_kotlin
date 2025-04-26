@@ -1,4 +1,4 @@
-package com.myriam.projetfinal.DailyChallenge
+package com.myriam.projetfinal.daily_challenge
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -15,14 +15,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.myriam.projetfinal.ButtonVariant
-import com.myriam.projetfinal.CustomButton
-import com.myriam.projetfinal.Exercise.Exercise
+import com.myriam.projetfinal.components.ButtonVariant
+import com.myriam.projetfinal.components.CustomButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import com.myriam.projetfinal.ui.theme.ProjetFinalTheme
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale

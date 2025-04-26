@@ -1,4 +1,4 @@
-package com.myriam.projetfinal.screens.HomeScreen.components
+package com.myriam.projetfinal.screens.home_screen.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

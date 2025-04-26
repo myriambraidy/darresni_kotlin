@@ -1,4 +1,4 @@
-package com.myriam.projetfinal.screens.ExercisesScreen.components
+package com.myriam.projetfinal.screens.exercises_screen.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

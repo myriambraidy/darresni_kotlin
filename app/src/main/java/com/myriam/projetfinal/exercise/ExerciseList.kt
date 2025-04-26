@@ -1,4 +1,4 @@
-package com.myriam.projetfinal.Exercise
+package com.myriam.projetfinal.exercise
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -45,8 +45,7 @@ fun ExerciseList(
                     title = exercise.title,
                     description = exercise.description,
                     id = exercise.id,
-                    starsPainter = painterResource(id = exercise.starsRes),
-                    colors = exercise.colors,
+                    accentColor = exercise.accentColor,
                     onClick = {
                         navController.navigate("exercise_details")
                         viewModel.selectedExercise = exercise

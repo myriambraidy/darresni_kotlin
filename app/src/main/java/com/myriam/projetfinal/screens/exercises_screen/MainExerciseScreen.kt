@@ -1,6 +1,6 @@
-package com.myriam.projetfinal.screens.ExercisesScreen
+package com.myriam.projetfinal.screens.exercises_screen
 
-import HeaderSection
+import SectionTitle
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,10 +21,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.myriam.projetfinal.Exercise.ExerciseViewModel
-import com.myriam.projetfinal.screens.ExercisesScreen.components.CategoryTitle
-import com.myriam.projetfinal.screens.ExercisesScreen.components.ExosHorizontalScrollSection
-import com.myriam.projetfinal.screens.ExercisesScreen.components.SearchBar
+import com.myriam.projetfinal.exercise.ExerciseViewModel
+import com.myriam.projetfinal.screens.exercises_screen.components.CategoryTitle
+import com.myriam.projetfinal.screens.exercises_screen.components.ExosHorizontalScrollSection
+import com.myriam.projetfinal.screens.exercises_screen.components.SearchBar
 
 @Composable
 fun ExercisesScreen(vm: ExerciseViewModel, nav: NavController) {
@@ -40,11 +40,11 @@ fun ExercisesScreen(vm: ExerciseViewModel, nav: NavController) {
             .padding(horizontal = 16.dp)
     ) {
         // Fixed header section
-        HeaderSection(
+        SectionTitle(
             title = "Exercises",
             icon = Icons.Default.CheckCircle,
             onIconClick = {
-                nav.navigate("dailychallenge")
+                nav.navigate("daily_challenge")
             }
         )
 

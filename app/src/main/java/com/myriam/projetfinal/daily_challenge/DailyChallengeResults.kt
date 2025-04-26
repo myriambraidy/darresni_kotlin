@@ -1,4 +1,4 @@
-package com.myriam.projetfinal.DailyChallenge
+package com.myriam.projetfinal.daily_challenge
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
