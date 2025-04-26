@@ -1,6 +1,5 @@
 package com.myriam.projetfinal.screens.exercises_screen
 
-import SectionTitle
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,22 +13,18 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.myriam.projetfinal.exercise.ExerciseViewModel
+import com.myriam.projetfinal.components.ScreenHeader
 import com.myriam.projetfinal.screens.exercises_screen.components.CategoryTitle
-import com.myriam.projetfinal.screens.exercises_screen.components.ExosHorizontalScrollSection
+import com.myriam.projetfinal.screens.exercises_screen.sections.HorizontalScrollSection
 import com.myriam.projetfinal.screens.exercises_screen.components.SearchBar
 
 @Composable
 fun ExercisesScreen(vm: ExerciseViewModel, nav: NavController) {
-    var searchQuery by remember { mutableStateOf("") }
-    val exercises by vm.exercises.observeAsState()
+    val exercises by vm.exercises.observeAsState(emptyList())
 
     Column(
         modifier = Modifier
@@ -39,8 +34,7 @@ fun ExercisesScreen(vm: ExerciseViewModel, nav: NavController) {
             .padding(top = 40.dp)
             .padding(horizontal = 16.dp)
     ) {
-        // Fixed header section
-        SectionTitle(
+        ScreenHeader(
             title = "Exercises",
             icon = Icons.Default.CheckCircle,
             onIconClick = {
@@ -51,9 +45,9 @@ fun ExercisesScreen(vm: ExerciseViewModel, nav: NavController) {
         Spacer(modifier = Modifier.height(8.dp))
 
         SearchBar(
-            query = searchQuery,
+            query = vm.searchQuery,
             onQueryChange = {
-                searchQuery = it
+                vm.searchQuery = it
                 vm.filterExercises(it)
             }
         )
@@ -74,7 +68,7 @@ fun ExercisesScreen(vm: ExerciseViewModel, nav: NavController) {
                     }
                 )
 
-                ExosHorizontalScrollSection(exercises = exercises ?: emptyList(), nav = nav)
+                HorizontalScrollSection(exercises = exercises ?: emptyList(), vm = vm, nav = nav)
 
                 Spacer(modifier = Modifier.height(16.dp))
             }
@@ -88,7 +82,7 @@ fun ExercisesScreen(vm: ExerciseViewModel, nav: NavController) {
                     }
                 )
 
-                ExosHorizontalScrollSection(exercises = exercises ?: emptyList(), nav = nav)
+                HorizontalScrollSection(exercises = exercises ?: emptyList(), vm = vm, nav = nav)
 
                 Spacer(modifier = Modifier.height(16.dp))
             }

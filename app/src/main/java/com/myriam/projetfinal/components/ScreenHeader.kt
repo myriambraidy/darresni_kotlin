@@ -1,4 +1,4 @@
-
+package com.myriam.projetfinal.components
 
 import androidx.compose.foundation.layout.*
 //noinspection UsingMaterialAndMaterial3Libraries
@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun SectionTitle(
+fun ScreenHeader(
     title: String,
     count: Int? = null,
     icon: ImageVector? = null,

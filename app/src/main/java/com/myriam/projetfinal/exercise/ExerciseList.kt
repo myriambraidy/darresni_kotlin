@@ -14,10 +14,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
+import com.myriam.projetfinal.screens.exercises_screen.ExerciseViewModel
+import com.myriam.projetfinal.screens.exercises_screen.components.ExerciseCard
 
 @Composable
 fun ExerciseList(
-    viewModel: ExerciseViewModel ,
+    viewModel: ExerciseViewModel,
     navController: NavController,
     modifier: Modifier = Modifier
 ) {
@@ -55,8 +57,3 @@ fun ExerciseList(
         }
     }
 }
-
-
-
-
-

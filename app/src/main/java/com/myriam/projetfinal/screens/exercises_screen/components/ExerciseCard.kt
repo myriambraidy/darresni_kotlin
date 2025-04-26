@@ -1,4 +1,4 @@
-package com.myriam.projetfinal.exercise
+package com.myriam.projetfinal.screens.exercises_screen.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

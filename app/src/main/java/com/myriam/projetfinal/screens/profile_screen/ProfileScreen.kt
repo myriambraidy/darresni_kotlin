@@ -1,6 +1,5 @@
 package com.myriam.projetfinal.screens.profile_screen
 
-import SectionTitle
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.myriam.projetfinal.data.repositories.UserRepositoryImpl
+import com.myriam.projetfinal.components.ScreenHeader
 
 @Composable
 fun ProfileScreen() {
@@ -23,10 +22,8 @@ fun ProfileScreen() {
             .padding(top = 40.dp)
             .padding(horizontal = 16.dp)
     ) {
-        SectionTitle(title = "Welcome", icon = Icons.Default.Settings)
+        ScreenHeader(title = "Welcome", icon = Icons.Default.Settings)
 
 
     }
-
-
 }

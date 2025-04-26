@@ -1,4 +1,4 @@
-package com.myriam.projetfinal.screens.exercises_screen.components
+package com.myriam.projetfinal.screens.exercises_screen.sections
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,10 +12,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.myriam.projetfinal.data.models.Exercise
-import com.myriam.projetfinal.exercise.ExerciseCard
+import com.myriam.projetfinal.screens.exercises_screen.ExerciseViewModel
+import com.myriam.projetfinal.screens.exercises_screen.components.ExerciseCard
 
 @Composable
-fun ExosHorizontalScrollSection(exercises: List<Exercise>, nav : NavController) {
+fun HorizontalScrollSection(exercises: List<Exercise>, vm: ExerciseViewModel, nav: NavController) {
 
     LazyRow(
         contentPadding = PaddingValues(horizontal = 8.dp),
@@ -33,8 +34,8 @@ fun ExosHorizontalScrollSection(exercises: List<Exercise>, nav : NavController) 
                         id = exercise.id,
                         accentColor = exercise.accentColor,
                         onClick = {
-//                            vm.selectedExercise = exercise
-//                            nav.navigate("exercise_details")
+                            vm.selectedExercise = exercise
+                            nav.navigate("exercise_details")
                         },
                         modifier = Modifier
                             .width(310.dp)

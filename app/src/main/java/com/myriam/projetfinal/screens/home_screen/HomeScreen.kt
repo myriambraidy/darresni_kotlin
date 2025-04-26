@@ -1,6 +1,5 @@
 package com.myriam.projetfinal.screens.home_screen
 
-import SectionTitle
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,8 +20,9 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.myriam.projetfinal.exercise.ExerciseCard
-import com.myriam.projetfinal.screens.ExerciseDetailScreen
+import com.myriam.projetfinal.components.ScreenHeader
+import com.myriam.projetfinal.screens.exercises_screen.components.ExerciseCard
+import com.myriam.projetfinal.screens.exercises_screen.sections.ExerciseDetails
 import com.myriam.projetfinal.screens.home_screen.components.GraphSection
 import com.myriam.projetfinal.screens.home_screen.components.StreakSection
 
@@ -37,7 +37,7 @@ fun HomeScreen(vm: HomeScreenViewModel) {
         }
 
         composable("devpick_details") {
-            vm.selectedDevPick?.let { it1 -> ExerciseDetailScreen(exo = it1, nav = homeNavController) }
+            vm.selectedDevPick?.let { it1 -> ExerciseDetails(exo = it1, nav = homeNavController) }
         }
     }
 }
@@ -52,7 +52,7 @@ fun HomeContent(vm: HomeScreenViewModel, nav: NavController) {
             .padding(top = 40.dp)
             .padding(horizontal = 16.dp)
     ) {
-        SectionTitle(title= "Welcome", count = 3)
+        ScreenHeader(title= "Welcome", count = 3)
         Spacer(modifier = Modifier.height(32.dp))
 
         StreakSection()

@@ -5,10 +5,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.navigation.compose.*
 import com.myriam.projetfinal.daily_challenge.DailyChallengeViewModel
-import com.myriam.projetfinal.exercise.ExerciseViewModel
+import com.myriam.projetfinal.screens.exercises_screen.ExerciseViewModel
+import com.myriam.projetfinal.screens.exercises_screen.ExercisesNav
 import com.myriam.projetfinal.screens.home_screen.HomeScreen
 import com.myriam.projetfinal.screens.home_screen.HomeScreenViewModel
-import com.myriam.projetfinal.exercise.MainExercisesScreen
 import com.myriam.projetfinal.screens.profile_screen.ProfileScreen
 import org.koin.androidx.compose.koinViewModel
 
@@ -29,7 +29,7 @@ fun MainScreen() {
             modifier = Modifier.padding(paddingValues)
         ) {
             composable(TabItem.Home.route) { HomeScreen(vm=homeVM) }
-            composable(TabItem.Exercises.route) { MainExercisesScreen(
+            composable(TabItem.Exercises.route) { ExercisesNav(
                 vm = exerciseVM,
                 dailyVM = dailyVm
             )  }

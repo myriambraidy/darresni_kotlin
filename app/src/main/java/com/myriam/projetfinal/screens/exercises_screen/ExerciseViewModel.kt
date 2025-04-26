@@ -1,4 +1,4 @@
-package com.myriam.projetfinal.exercise
+package com.myriam.projetfinal.screens.exercises_screen
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,6 +12,7 @@ class ExerciseViewModel(
 
     val exercises = MutableLiveData<List<Exercise>>()
     var selectedExercise: Exercise? = null
+    var searchQuery: String = ""
 
     init { exercises.value = originalExercises }
 

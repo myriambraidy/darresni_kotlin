@@ -1,6 +1,5 @@
-package com.myriam.projetfinal.exercise
+package com.myriam.projetfinal.screens.exercises_screen.sections
 
-import SectionTitle
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,10 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.myriam.projetfinal.components.ScreenHeader
+import com.myriam.projetfinal.exercise.ExerciseList
+import com.myriam.projetfinal.screens.exercises_screen.ExerciseViewModel
 import com.myriam.projetfinal.screens.exercises_screen.components.SearchBar
 
 @Composable
-fun CodeSnippetsSection(vm: ExerciseViewModel, nav: NavController) {
+fun MoreExercisesSection(title: String, vm: ExerciseViewModel, nav: NavController) {
     var searchQuery by remember { mutableStateOf("") }
 
     Column(
@@ -30,8 +32,8 @@ fun CodeSnippetsSection(vm: ExerciseViewModel, nav: NavController) {
             .padding(horizontal = 16.dp)
 
     ) {
-        SectionTitle(
-            title = "Code Snippets",
+        ScreenHeader(
+            title = title,
             showBack = true,
             onBackClick = {
                 nav.popBackStack()
