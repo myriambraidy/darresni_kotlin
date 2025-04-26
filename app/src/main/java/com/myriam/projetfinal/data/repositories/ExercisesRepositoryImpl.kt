@@ -20,7 +20,7 @@ class ExercisesRepositoryImpl: ExercisesRepository {
             id = "43",
             imageRes = R.drawable.cpplogo,
             starsRes = R.drawable.fivestars,
-            accentColor = Color(android.graphics.Color.parseColor("#737373"))
+            accentColor = Color.Magenta
         ),
         Exercise(
             title = "Pointers",
@@ -37,7 +37,7 @@ class ExercisesRepositoryImpl: ExercisesRepository {
             id = "23",
             imageRes = R.drawable.cpplogo,
             starsRes = R.drawable.fivestars,
-            accentColor = Color(android.graphics.Color.parseColor("#737373"))
+            accentColor = Color.Green
         ),
         Exercise(
             title = "Algorithms",
@@ -53,7 +53,7 @@ class ExercisesRepositoryImpl: ExercisesRepository {
             id = "15",
             imageRes = R.drawable.cpplogo,
             starsRes = R.drawable.fivestars,
-            accentColor = Color(android.graphics.Color.parseColor("#737373"))
+            accentColor = Color.Cyan
         )
     )
 

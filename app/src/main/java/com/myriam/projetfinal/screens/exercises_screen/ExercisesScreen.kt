@@ -38,7 +38,7 @@ fun ExercisesScreen(vm: ExerciseViewModel, nav: NavController) {
             title = "Exercises",
             icon = Icons.Default.CheckCircle,
             onIconClick = {
-                nav.navigate("daily_challenge")
+                // Change Later
             }
         )
 

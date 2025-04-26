@@ -24,6 +24,8 @@ class DailyChallengeViewModel : ViewModel() {
         )
     )
 
+    var userAnswer: String = ""
+
     fun getExercise(): Exercise {
         return originalExercises.first() // You can update this to return dynamically
     }

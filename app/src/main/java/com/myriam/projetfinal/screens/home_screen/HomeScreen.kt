@@ -20,6 +20,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.myriam.projetfinal.components.ButtonVariant
+import com.myriam.projetfinal.components.CustomButton
 import com.myriam.projetfinal.components.ScreenHeader
 import com.myriam.projetfinal.screens.exercises_screen.components.ExerciseCard
 import com.myriam.projetfinal.screens.exercises_screen.sections.ExerciseDetails
@@ -27,13 +29,13 @@ import com.myriam.projetfinal.screens.home_screen.components.GraphSection
 import com.myriam.projetfinal.screens.home_screen.components.StreakSection
 
 @Composable
-fun HomeScreen(vm: HomeScreenViewModel) {
+fun HomeScreen(vm: HomeScreenViewModel, appNav: NavController) {
 
     val homeNavController = rememberNavController()
 
     NavHost(homeNavController, startDestination = "home") {
         composable("home") {
-            HomeContent(vm, homeNavController)
+            HomeContent(vm, homeNavController, appNav)
         }
 
         composable("devpick_details") {
@@ -43,7 +45,7 @@ fun HomeScreen(vm: HomeScreenViewModel) {
 }
 
 @Composable
-fun HomeContent(vm: HomeScreenViewModel, nav: NavController) {
+fun HomeContent(vm: HomeScreenViewModel, nav: NavController, appNav: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -57,6 +59,15 @@ fun HomeContent(vm: HomeScreenViewModel, nav: NavController) {
 
         StreakSection()
         Spacer(modifier = Modifier.height(32.dp))
+
+
+        CustomButton(
+            label = "Daily Challenge",
+            onClick = { appNav.navigate("daily_question") },
+            width = 250,
+            height = 45,
+            variant = ButtonVariant.Default
+        )
 
         GraphSection()
         Spacer(modifier = Modifier.height(32.dp))
