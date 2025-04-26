@@ -7,21 +7,24 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.myriam.projetfinal.Exercise.Exercise
 import com.myriam.projetfinal.Exercise.ExerciseCard
 import com.myriam.projetfinal.Exercise.ExerciseViewModel
 
 @Composable
-fun CodeSnippets(vm : ExerciseViewModel) {
+fun ExosHorizontalScrollSection(exercises: List<Exercise>, nav : NavController) {
 
     LazyRow(
         contentPadding = PaddingValues(horizontal = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        items(vm.originalExercises.chunked(2)) { pair ->
+        items(exercises.chunked(2)) { pair ->
             Column(
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
@@ -33,9 +36,13 @@ fun CodeSnippets(vm : ExerciseViewModel) {
                         id = exercise.id,
                         starsPainter = painterResource(id = exercise.starsRes),
                         colors = exercise.colors,
-                        onClick = {},
+                        accentColor = exercise.colors.first(),
+                        onClick = {
+//                            vm.selectedExercise = exercise
+//                            nav.navigate("exercise_details")
+                        },
                         modifier = Modifier
-                            .width(310.dp) // or adjust based on your screen
+                            .width(310.dp)
                     )
                 }
             }

@@ -1,13 +1,13 @@
 package com.myriam.projetfinal.screens.HomeScreen
 
 import androidx.compose.ui.graphics.Color
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.myriam.projetfinal.Exercise.Exercise
 import com.myriam.projetfinal.R
 import com.myriam.projetfinal.ui.theme.LightTextSecondaryColor
 
-class
-HomeScreenViewModel: ViewModel() {
+class HomeScreenViewModel: ViewModel() {
     val devsPick = listOf(
         Exercise(
             title = "Java",
@@ -49,6 +49,24 @@ HomeScreenViewModel: ViewModel() {
             )
         ),
     )
+    val devPick = MutableLiveData<List<Exercise>>()
+    var selectedDevPick: Exercise? = null;
+
+    init {
+        devPick.value = devsPick
+    }
+
+    fun filterDevsPick(query: String) {
+        val filteredList = if (query.isEmpty()) {
+            devsPick
+        } else {
+            devsPick.filter {
+                it.title.contains(query, ignoreCase = true) ||
+                        it.description.contains(query, ignoreCase = true)
+            }
+        }
+        devPick.value = filteredList
+    }
 
 
 }

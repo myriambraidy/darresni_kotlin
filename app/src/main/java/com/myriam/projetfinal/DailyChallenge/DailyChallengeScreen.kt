@@ -22,6 +22,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import com.myriam.projetfinal.ui.theme.ProjetFinalTheme
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -36,6 +37,8 @@ fun getCurrentFormattedDate(): String {
 @Composable
 fun DailyChallengeScreen(vm: DailyChallengeViewModel, nav : NavController) {
     val exercise = vm.getExercise()
+
+
 
     Column(
         modifier = Modifier
@@ -61,7 +64,7 @@ fun DailyChallengeScreen(vm: DailyChallengeViewModel, nav : NavController) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 IconButton(onClick = {
-                    nav.popBackStack("all_exercises", inclusive = false) // 🔄 Adjust "main" to your actual route
+                    nav.popBackStack()
                 }) {
                     Icon(
                         imageVector = Icons.Default.Close,
@@ -75,14 +78,15 @@ fun DailyChallengeScreen(vm: DailyChallengeViewModel, nav : NavController) {
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.weight(5f)                )
+                    modifier = Modifier.weight(5f)
+                )
 
             }
 
             Box(
                 modifier = Modifier
                     .clip(RoundedCornerShape(8.dp))
-                    .background(Color(0xFFB84D33))
+                    .background(MaterialTheme.colorScheme.primary)
                     .padding(horizontal = 12.dp, vertical = 4.dp)
             ) {
                 Text(
@@ -129,7 +133,7 @@ fun DailyChallengeScreen(vm: DailyChallengeViewModel, nav : NavController) {
 
             CustomButton(
                 label = "Start Writing",
-                onClick = { nav.navigate("startWriting")},
+                onClick = { nav.navigate("startWriting") },
                 width = 250,
                 height = 45,
                 variant = ButtonVariant.Default

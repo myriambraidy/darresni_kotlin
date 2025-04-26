@@ -133,7 +133,7 @@ class ExerciseViewModel : ViewModel() {
                     "        tree.inorder(root);\n" +
                     "    }\n" +
                     "}\n",
-            id = "29",
+            id = "25",
             imageRes = R.drawable.cpplogo,
             starsRes = R.drawable.fivestars,
             colors = listOf(

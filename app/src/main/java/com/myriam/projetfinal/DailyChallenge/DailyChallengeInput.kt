@@ -73,7 +73,7 @@ fun DailyChallengeWriteScreen(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 IconButton(onClick = {
-                    nav.popBackStack("all_exercises", inclusive = false) // 🔄 Adjust "main" to your actual route
+                    nav.popBackStack()
                 }) {
                     Icon(
                         imageVector = Icons.Default.Close,
