@@ -13,6 +13,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -20,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -59,16 +63,37 @@ fun AchievementCard(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxSize()
             ) {
+                // Achievement image with lock overlay
                 Box(
-                    modifier = Modifier.size(100.dp)
+                    modifier = Modifier.size(100.dp),
+                    contentAlignment = Alignment.Center
                 ) {
+                    // Achievement image with adjusted alpha for locked state
                     Image(
                         painter = painterResource(id = achievement.imageRes),
                         contentDescription = achievement.title,
-                        modifier = Modifier.fillMaxSize(),
-                        alpha = if (achievement.isUnlocked) 1f else 0.5f
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .alpha(if (achievement.isUnlocked) 1f else 0.5f)
                     )
+
+                    // Lock icon overlay for locked achievements
+                    if (!achievement.isUnlocked) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Lock,
+                                contentDescription = "Locked",
+                                tint = Color.White,
+                                modifier = Modifier.size(36.dp)
+                            )
+                        }
+                    }
                 }
+
                 Column(
                     modifier = Modifier
                         .weight(1f)
@@ -105,14 +130,15 @@ fun AchievementCard(
                             modifier = Modifier.padding(start = 8.dp)
                         )
 
-                        if (achievement.isUnlocked) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                                contentDescription = "Unlocked",
-                                tint = Color.Green,
-                                modifier = Modifier.padding(start = 8.dp)
-                            )
-                        }
+                        // Status indicator icon - using Check for unlocked instead of LockOpen
+                        Icon(
+                            imageVector = if (achievement.isUnlocked) Icons.Default.Check else Icons.Default.Lock,
+                            contentDescription = if (achievement.isUnlocked) "Unlocked" else "Locked",
+                            tint = if (achievement.isUnlocked) Color.Green else Color.Gray,
+                            modifier = Modifier
+                                .padding(start = 8.dp)
+                                .size(24.dp)
+                        )
                     }
                 }
                 Text(
