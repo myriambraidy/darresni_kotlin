@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.*
 import androidx.compose.ui.graphics.Color
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -23,25 +22,26 @@ import androidx.navigation.compose.rememberNavController
 import com.myriam.projetfinal.DailyChallenge.DailyChallengeScreen
 import com.myriam.projetfinal.DailyChallenge.DailyChallengeViewModel
 import com.myriam.projetfinal.DailyChallenge.DailyChallengeWriteScreen
-import com.myriam.projetfinal.Exercise.Exercise
 import com.myriam.projetfinal.Exercise.ExerciseList
 import com.myriam.projetfinal.Exercise.ExerciseViewModel
-import com.myriam.projetfinal.screens.ExercisesScreen.MainExerciseScreen
+import com.myriam.projetfinal.screens.ExercisesScreen.ExercisesScreen
 
 @Composable
-fun ExercisesScreen(exerciseViewModel: ExerciseViewModel, dailychallengevm : DailyChallengeViewModel) {
+fun MainExercisesScreen(exerciseViewModel: ExerciseViewModel,
+                    dailychallengevm : DailyChallengeViewModel) {
     val navController = rememberNavController()
 
-    NavHost(navController, startDestination = "all_exercises"){
-        composable("all_exercises") {
-            MainExerciseScreen(vm= exerciseViewModel, nav = navController)
+    NavHost(navController, startDestination = "main"){
+        composable("main") {
+            ExercisesScreen(vm= exerciseViewModel, nav = navController)
         }
         composable("codeSnippets") {
-            ExerciseMainContent(vm = exerciseViewModel, nav= navController)
+            CodeSnippets(vm = exerciseViewModel, nav= navController)
         }
         composable("exercise_details") {
-            ExerciseDetailScreen(vm = exerciseViewModel, nav = navController)
+            exerciseViewModel.selectedExercise?.let { it1 -> ExerciseDetailScreen(exo = it1, nav = navController) }
         }
+
         composable("dailychallenge") {
             DailyChallengeScreen(vm = dailychallengevm, nav= navController )
         }
@@ -61,7 +61,7 @@ fun ExercisesScreen(exerciseViewModel: ExerciseViewModel, dailychallengevm : Dai
 }
 
 @Composable
-fun ExerciseMainContent(vm: ExerciseViewModel, nav: NavController) {
+fun CodeSnippets(vm: ExerciseViewModel, nav: NavController) {
     var searchQuery by remember { mutableStateOf("") }
 
     Column(
@@ -90,8 +90,7 @@ fun ExerciseMainContent(vm: ExerciseViewModel, nav: NavController) {
 
         ExerciseList(viewModel = vm,
             navController = nav,
-            modifier = Modifier.weight(1f))
-
-
+            modifier = Modifier.weight(1f)
+        )
     }
 }

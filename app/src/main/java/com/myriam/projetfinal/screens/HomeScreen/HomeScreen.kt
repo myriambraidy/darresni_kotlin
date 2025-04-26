@@ -18,14 +18,34 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.myriam.projetfinal.Exercise.ExerciseCard
+import com.myriam.projetfinal.Exercise.ExerciseViewModel
+import com.myriam.projetfinal.screens.ExerciseDetailScreen
 import com.myriam.projetfinal.screens.HomeScreen.components.GraphSection
 import com.myriam.projetfinal.screens.HomeScreen.components.StreakSection
 
 @Composable
-fun HomeScreen() {
-    val vm: HomeScreenViewModel = viewModel()
+fun HomeScreen(vm: HomeScreenViewModel) {
 
+    val homeNavController = rememberNavController()
+
+    NavHost(homeNavController, startDestination = "home") {
+        composable("home") {
+            HomeContent(vm, homeNavController)
+        }
+
+        composable("devpick_details") {
+            vm.selectedDevPick?.let { it1 -> ExerciseDetailScreen(exo = it1, nav = homeNavController) }
+        }
+    }
+}
+
+@Composable
+fun HomeContent(vm: HomeScreenViewModel, nav: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -50,17 +70,18 @@ fun HomeScreen() {
         )
         Spacer(modifier = Modifier.height(8.dp))
         LazyColumn {
-            items(vm.devsPick) { exercise ->
+            items(vm.devsPick) { devpick ->
                 ExerciseCard(
-                    painter = painterResource(id = exercise.imageRes),
-                    title = exercise.title,
-                    description = exercise.description,
-                    id = exercise.id,
-                    starsPainter = painterResource(id = exercise.starsRes),
-                    colors = exercise.colors,
+                    painter = painterResource(id = devpick.imageRes),
+                    title = devpick.title,
+                    description = devpick.description,
+                    id = devpick.id,
+                    starsPainter = painterResource(id = devpick.starsRes),
+                    colors = devpick.colors,
                     onClick = {
-//                        navController.navigate("exercise_details")
-//                        viewModel.selectedExercise = exercise
+                        vm.selectedDevPick = devpick
+                        nav.navigate("devpick_details")
+
                     }
                 )
             }

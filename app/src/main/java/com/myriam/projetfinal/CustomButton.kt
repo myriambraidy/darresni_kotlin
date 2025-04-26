@@ -15,13 +15,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.material3.MaterialTheme
+import com.myriam.projetfinal.ui.theme.PrimaryColorGreen
+import com.myriam.projetfinal.ui.theme.ProjetFinalTheme
 
 
-@Composable
-fun componentsColorScheme(): ColorScheme {
-    return MaterialTheme.colorScheme
-}
 
 enum class ButtonVariant {
     Default, Destructive, Outline, Secondary
@@ -37,62 +34,64 @@ fun CustomButton(
     label: String? = null,
     icon: @Composable (() -> Unit)? = null
 ) {
-    val colorTheme = componentsColorScheme()
+    ProjetFinalTheme {
 
-    val colors = when (variant) {
-        ButtonVariant.Default -> ButtonDefaults.buttonColors(
-            containerColor = colorTheme.primary,
-            contentColor = colorTheme.onPrimary
-        )
 
-        ButtonVariant.Destructive -> ButtonDefaults.buttonColors(
-            containerColor = colorTheme.primary,
-            contentColor = colorTheme.onSecondary
-        )
+        val colors = when (variant) {
+            ButtonVariant.Default -> ButtonDefaults.buttonColors(
+                containerColor = PrimaryColorGreen,
+                contentColor = Color.White
+            )
 
-        ButtonVariant.Outline -> ButtonDefaults.outlinedButtonColors(
-            contentColor = colorTheme.primary,
-            containerColor = Color.Transparent
-        )
+            ButtonVariant.Destructive -> ButtonDefaults.buttonColors(
+                containerColor = PrimaryColorGreen,
+                contentColor = Color.White
+            )
 
-        ButtonVariant.Secondary -> ButtonDefaults.buttonColors(
-            containerColor = colorTheme.secondary,
-            contentColor = colorTheme.primary
-        )
-    }
-    val shape = RoundedCornerShape(6.dp)
-    val borderModifier = if (variant == ButtonVariant.Outline) {
-        Modifier.border(
-            width = 2.dp,
-            color = colorTheme.secondary,
+            ButtonVariant.Outline -> ButtonDefaults.outlinedButtonColors(
+                contentColor = PrimaryColorGreen,
+                containerColor = Color.White
+            )
+
+            ButtonVariant.Secondary -> ButtonDefaults.buttonColors(
+                containerColor = PrimaryColorGreen,
+                contentColor = Color.White
+            )
+        }
+        val shape = RoundedCornerShape(6.dp)
+        val borderModifier = if (variant == ButtonVariant.Outline) {
+            Modifier.border(
+                width = 2.dp,
+                color = PrimaryColorGreen,
+                shape = shape
+            )
+        } else {
+            Modifier
+        }
+
+        androidx.compose.material3.Button(
+            onClick = onClick,
+            colors = colors,
+            modifier = modifier
+                .then(borderModifier)
+                .size(height = height.dp, width = width.dp),
+            content = {
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    if (icon != null) {
+                        icon()
+                    }
+                    if (icon != null && label != null) {
+                        Spacer(modifier = Modifier.width(8.dp))
+                    }
+                    if (label != null) {
+                        Text(text = label)
+                    }
+                }
+            },
             shape = shape
         )
-    } else {
-        Modifier
     }
-
-    androidx.compose.material3.Button(
-        onClick = onClick,
-        colors = colors,
-        modifier = modifier
-            .then(borderModifier)
-            .size(height = height.dp, width = width.dp),
-        content = {
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                if (icon != null) {
-                    icon()
-                }
-                if (icon != null && label != null) {
-                    Spacer(modifier = Modifier.width(8.dp))
-                }
-                if (label != null) {
-                    Text(text = label)
-                }
-            }
-        },
-        shape=shape
-    )
 }

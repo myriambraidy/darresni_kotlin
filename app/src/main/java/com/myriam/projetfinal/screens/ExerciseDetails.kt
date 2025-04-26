@@ -8,10 +8,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.myriam.projetfinal.Exercise.ExerciseViewModel
+import com.myriam.projetfinal.Exercise.Exercise
 
 @Composable
-fun ExerciseDetailScreen(vm: ExerciseViewModel, nav: NavController) {
+fun ExerciseDetailScreen(exo: Exercise, nav: NavController) {
 
     Column(
         modifier = Modifier
@@ -22,17 +22,12 @@ fun ExerciseDetailScreen(vm: ExerciseViewModel, nav: NavController) {
             .padding(horizontal = 16.dp)
 
     ) {
-        vm.selectedExercise?.title?.let {
-            HeaderSection(
-                title = it,
-                showBack = true,
-                onBackClick = {
-                    nav.popBackStack()
-                }
-            )
-        }
-
-
-
+        HeaderSection(
+            title = exo.title,
+            showBack = true,
+            onBackClick = {
+                nav.popBackStack()
+            }
+        )
     }
 }

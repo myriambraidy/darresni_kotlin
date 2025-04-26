@@ -14,34 +14,39 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.myriam.projetfinal.ui.theme.PrimaryColorGreen
+import com.myriam.projetfinal.ui.theme.ProjetFinalTheme
 
 @Composable
 fun CategoryTitle(
     title: String,
     onViewMoreClick: () -> Unit
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 4.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-            color = Color.Black
-        )
+    ProjetFinalTheme {
 
-        Text(
-            text = "view more",
-            style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.primary),
-            modifier = Modifier.clickable { onViewMoreClick() }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 4.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                color = Color.Black
+            )
+
+            Text(
+                text = "view more",
+                style = MaterialTheme.typography.bodyMedium.copy(color = PrimaryColorGreen),
+                modifier = Modifier.clickable { onViewMoreClick() }
+            )
+        }
+
+        Divider(
+            modifier = Modifier.fillMaxWidth(),
+            thickness = 2.dp
         )
     }
-
-    Divider(
-        modifier = Modifier.fillMaxWidth(),
-        thickness = 2.dp
-    )
 }
