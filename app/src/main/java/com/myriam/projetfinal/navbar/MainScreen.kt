@@ -10,13 +10,14 @@ import com.myriam.projetfinal.screens.home_screen.HomeScreen
 import com.myriam.projetfinal.screens.home_screen.HomeScreenViewModel
 import com.myriam.projetfinal.exercise.MainExercisesScreen
 import com.myriam.projetfinal.screens.profile_screen.ProfileScreen
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
-    val exerciseVm = ExerciseViewModel()
+    val homeVM: HomeScreenViewModel = koinViewModel()
+    val exerciseVM: ExerciseViewModel = koinViewModel()
     val dailyVm = DailyChallengeViewModel()
-    val homeVm = HomeScreenViewModel()
     val tabs = listOf(TabItem.Home, TabItem.Exercises, TabItem.Profile)
 
     Scaffold(
@@ -27,13 +28,12 @@ fun MainScreen() {
             startDestination = TabItem.Home.route,
             modifier = Modifier.padding(paddingValues)
         ) {
-            composable(TabItem.Home.route) { HomeScreen(vm=homeVm) }
+            composable(TabItem.Home.route) { HomeScreen(vm=homeVM) }
             composable(TabItem.Exercises.route) { MainExercisesScreen(
-                vm = exerciseVm,
+                vm = exerciseVM,
                 dailyVM = dailyVm
             )  }
             composable(TabItem.Profile.route) { ProfileScreen() }
         }
     }
 }
-

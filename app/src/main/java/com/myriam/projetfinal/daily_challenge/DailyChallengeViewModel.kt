@@ -1,6 +1,6 @@
 package com.myriam.projetfinal.daily_challenge
 
-import com.myriam.projetfinal.exercise.Exercise
+import com.myriam.projetfinal.data.models.Exercise
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.myriam.projetfinal.R

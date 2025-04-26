@@ -1,4 +1,4 @@
-package com.myriam.projetfinal.exercise
+package com.myriam.projetfinal.data.models
 
 import androidx.compose.ui.graphics.Color
 

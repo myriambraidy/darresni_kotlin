@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.myriam.projetfinal.exercise.Exercise
+import com.myriam.projetfinal.data.models.Exercise
 
 @Composable
 fun ExerciseDetailScreen(exo: Exercise, nav: NavController) {
