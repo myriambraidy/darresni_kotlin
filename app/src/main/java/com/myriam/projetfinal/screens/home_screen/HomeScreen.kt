@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MaterialTheme // Keep MaterialTheme import
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,7 +20,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.myriam.projetfinal.components.ScreenHeader
+import com.myriam.projetfinal.components.ScreenHeader // Import ScreenHeader
 import com.myriam.projetfinal.screens.exercises_screen.components.ExerciseCard
 import com.myriam.projetfinal.screens.exercises_screen.sections.ExerciseDetails
 import com.myriam.projetfinal.screens.home_screen.components.DailySection
@@ -37,63 +37,69 @@ fun HomeScreen(vm: HomeScreenViewModel, appNav: NavController) {
         }
 
         composable("devpick_details") {
-            vm.selectedDevPick?.let { it1 -> ExerciseDetails(exo = it1, nav = homeNavController) }
+            // Ensure ExerciseDetails is adapted for dark mode internally
+            vm.selectedDevPick?.let { exo ->
+                ExerciseDetails(exo = exo, nav = homeNavController)
+            }
         }
     }
 }
 
 @Composable
 fun HomeContent(vm: HomeScreenViewModel, nav: NavController, appNav: NavController) {
+    // Use a dark gray background color
+    val darkBackground = Color(0xFF262626) // Dark gray background
+    val primaryTextColor = Color.White
+    val secondaryTextColor = Color(0xFFB0B0B0) // Lighter gray for secondary text
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFF7F7F7))
-            .padding(16.dp)
-            .padding(top = 40.dp)
-            .padding(horizontal = 16.dp)
+            .background(darkBackground) // Apply dark gray background
+            .padding(16.dp) // Apply padding once
     ) {
-        ScreenHeader(title= "Welcome" )
+        // Call ScreenHeader WITHOUT the textColor parameter.
+        // ScreenHeader needs to be modified internally to handle dark mode text color.
+        ScreenHeader(title = "Welcome")
         Spacer(modifier = Modifier.height(32.dp))
 
+        // StreakSection uses its internal dark mode styling
         StreakSection()
         Spacer(modifier = Modifier.height(32.dp))
 
-//        CustomButton(
-//            label = "Daily Challenge",
-//            onClick = { appNav.navigate("daily_question") },
-//            width = 250,
-//            height = 45,
-//            variant = ButtonVariant.Default
-//        )
-
-//        GraphSection()
-        DailySection(appNav =appNav)
-
+        // DailySection uses its internal dark mode styling
+        DailySection(appNav = appNav)
         Spacer(modifier = Modifier.height(32.dp))
 
         Text(
             text = "Devs’ pick of the day",
-            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-            color = Color.Black
+            style = MaterialTheme.typography.titleLarge, // Use typography from theme
+            fontWeight = FontWeight.Bold, // Explicit weight if needed
+            color = primaryTextColor // Use primary text color
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
         LazyColumn {
             items(vm.devsPick) { devpick ->
+                // Ensure ExerciseCard is adapted for dark mode internally
+                // or pass colors explicitly if the component supports it.
                 ExerciseCard(
                     painter = painterResource(id = devpick.imageRes),
                     title = devpick.title,
                     description = devpick.description,
                     id = devpick.id,
-                    accentColor = devpick.accentColor,
+                    accentColor = devpick.accentColor, // Keep specific accent
+                    // Example of passing colors if needed:
+                    // cardColor = Color(0xFF1E1E1E),
+                    // titleColor = primaryTextColor,
+                    // descriptionColor = secondaryTextColor,
                     onClick = {
                         vm.selectedDevPick = devpick
                         nav.navigate("devpick_details")
-
                     }
                 )
+                Spacer(modifier = Modifier.height(12.dp))
             }
         }
-
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(8.dp)) // Space at the bottom
     }
 }

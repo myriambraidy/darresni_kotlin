@@ -41,7 +41,7 @@ fun CustomBottomNav(navController: NavController, tabs: List<TabItem>) {
         Modifier
             .fillMaxWidth()
             .height(80.dp)
-            .background(Color.White)
+            .background(Color(0xFF262626))
     ) {
         Row(
             modifier = Modifier
