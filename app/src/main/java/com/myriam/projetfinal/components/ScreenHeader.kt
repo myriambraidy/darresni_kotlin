@@ -83,7 +83,9 @@ fun ScreenHeader(
 
         Divider(
             modifier = Modifier.fillMaxWidth(),
+            color = Color(0xFF363333),
             thickness = 2.dp
         )
+
     }
 }

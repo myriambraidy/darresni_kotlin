@@ -34,7 +34,7 @@ fun CategoryTitle(
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                color = Color.Black
+                color = Color.White
             )
 
             Text(
@@ -46,6 +46,7 @@ fun CategoryTitle(
 
         Divider(
             modifier = Modifier.fillMaxWidth(),
+            color = Color(0xFF363333),
             thickness = 2.dp
         )
     }

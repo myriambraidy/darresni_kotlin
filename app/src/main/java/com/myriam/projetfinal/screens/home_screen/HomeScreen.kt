@@ -57,6 +57,7 @@ fun HomeContent(vm: HomeScreenViewModel, nav: NavController, appNav: NavControll
             .fillMaxSize()
             .background(darkBackground) // Apply dark gray background
             .padding(16.dp) // Apply padding once
+            .padding(horizontal = 16.dp)
     ) {
         // Call ScreenHeader WITHOUT the textColor parameter.
         // ScreenHeader needs to be modified internally to handle dark mode text color.
