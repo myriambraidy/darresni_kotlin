@@ -19,9 +19,7 @@ import com.myriam.projetfinal.data.models.History
 import com.myriam.projetfinal.data.models.User
 import com.myriam.projetfinal.viewmodels.AppRoutes
 import org.koin.androidx.compose.koinViewModel
-// Import the ProfileUiState from its new file
 import com.myriam.projetfinal.screens.profile_screen.ProfileUiState
-// Import for Icon:
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 
@@ -86,7 +84,7 @@ fun ProfileContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White) // Or your desired background
+            .background(Color(0xFF262626)) // Or your desired background
     ) {
         // Non-Scrolling Header Section
         HeaderSectionProfileRedesigned(userProfile = user)
