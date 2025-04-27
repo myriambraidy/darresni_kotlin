@@ -29,8 +29,6 @@ val appModule = module {
     viewModel { LoginScreenViewModel(get()) }
     viewModel { SignupScreenViewModel(get()) }
     viewModel { DailyChallengeViewModel(/* dependencies */) }
-
-    // *** ADD THIS LINE IF MISSING OR CORRECT IT ***
-    viewModel { ProfileScreenViewModel(get()) } // It needs UserRepository (get())
+    viewModel { ProfileScreenViewModel(get()) }
 
 }
