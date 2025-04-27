@@ -12,6 +12,7 @@ navigationRuntimeAndroid = "2.9.0-alpha09"
 runtimeLivedata = "1.7.8"
 storage = "1.5.0"
 paletteKtx = "1.0.0"
+material3Lint = "1.4.0-alpha13"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -32,9 +33,10 @@ androidx-navigation-runtime-android = { group = "androidx.navigation", name = "n
 androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
 androidx-storage = { group = "androidx.test.services", name = "storage", version.ref = "storage" }
 androidx-palette-ktx = { group = "androidx.palette", name = "palette-ktx", version.ref = "paletteKtx" }
+androidx-material3-lint = { group = "androidx.compose.material3", name = "material3-lint", version.ref = "material3Lint" }
 
 [plugins]
-android-application = { id = "com.android.application", version = "8.7.1" }
+android-application = { id = "com.android.application", version = "8.8.0" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 

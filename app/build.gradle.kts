@@ -53,6 +53,8 @@ dependencies {
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.androidx.storage)
     implementation(libs.androidx.palette.ktx)
+    implementation(libs.androidx.espresso.core)
+    implementation(libs.androidx.material3.lint)
 //    implementation(libs.androidx.navigation.runtime.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -67,4 +69,6 @@ dependencies {
 //    implementation(libs.navigation.compose)
     implementation("io.insert-koin:koin-android:3.5.0")
     implementation("io.insert-koin:koin-androidx-compose:3.5.0")
+    // Add this dependency to your build.gradle file
+    implementation("androidx.compose.material:material-icons-extended:1.5.0")
 }
