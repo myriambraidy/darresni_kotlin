@@ -20,12 +20,10 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.myriam.projetfinal.components.ButtonVariant
-import com.myriam.projetfinal.components.CustomButton
 import com.myriam.projetfinal.components.ScreenHeader
 import com.myriam.projetfinal.screens.exercises_screen.components.ExerciseCard
 import com.myriam.projetfinal.screens.exercises_screen.sections.ExerciseDetails
-import com.myriam.projetfinal.screens.home_screen.components.GraphSection
+import com.myriam.projetfinal.screens.home_screen.components.DailySection
 import com.myriam.projetfinal.screens.home_screen.components.StreakSection
 
 @Composable
@@ -54,22 +52,23 @@ fun HomeContent(vm: HomeScreenViewModel, nav: NavController, appNav: NavControll
             .padding(top = 40.dp)
             .padding(horizontal = 16.dp)
     ) {
-        ScreenHeader(title= "Welcome", count = 3)
+        ScreenHeader(title= "Welcome" )
         Spacer(modifier = Modifier.height(32.dp))
 
         StreakSection()
         Spacer(modifier = Modifier.height(32.dp))
 
+//        CustomButton(
+//            label = "Daily Challenge",
+//            onClick = { appNav.navigate("daily_question") },
+//            width = 250,
+//            height = 45,
+//            variant = ButtonVariant.Default
+//        )
 
-        CustomButton(
-            label = "Daily Challenge",
-            onClick = { appNav.navigate("daily_question") },
-            width = 250,
-            height = 45,
-            variant = ButtonVariant.Default
-        )
+//        GraphSection()
+        DailySection(appNav =appNav)
 
-        GraphSection()
         Spacer(modifier = Modifier.height(32.dp))
 
         Text(
