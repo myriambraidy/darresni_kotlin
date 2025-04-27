@@ -1,69 +1,39 @@
 package com.myriam.projetfinal.screens.ProfileScreen
 
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
-import com.myriam.projetfinal.Achievement.Achievement
-import com.myriam.projetfinal.UserProfile.UserProfile
-import com.myriam.projetfinal.R
+import androidx.lifecycle.viewModelScope
+import com.myriam.projetfinal.data.repositories.interfaces.UserRepository
+import kotlinx.coroutines.flow.*
+// Import the ProfileUiState from its new file
+import com.myriam.projetfinal.screens.profile_screen.ProfileUiState
 
-class ProfileScreenViewModel : ViewModel() {
+class ProfileScreenViewModel(
+    private val userRepository: UserRepository
+) : ViewModel() {
 
-        val userProfile = UserProfile(
-            username = "CodeNinja",
-            level = 5,
-            streakCount = 15,
-            daysActive = 30,
-            totalXp = 1250,
-            profileImageRes = R.drawable.cpplogo,
-            colors = listOf(
-                Color(android.graphics.Color.parseColor("#3F51B5")),
-                Color(android.graphics.Color.parseColor("#7986CB"))
-            )
+    // Expose the UI state derived from the repository's currentUser flow
+    val uiState: StateFlow<ProfileUiState> = userRepository.currentUser
+        .map { user ->
+            // Map the User? object to the appropriate ProfileUiState
+            if (user != null) {
+                ProfileUiState.Success(user) // User data available
+            } else {
+                // No user data (either loading initially handled by initialValue,
+                // or user logged out after being logged in)
+                ProfileUiState.Error // Represent logged out / error state
+            }
+        }
+        .stateIn( // Convert Flow to StateFlow for Compose UI consumption
+            scope = viewModelScope,
+            // Keep the flow active for 5 seconds after the last observer stops observing.
+            // This helps survive configuration changes briefly.
+            started = SharingStarted.WhileSubscribed(5000L),
+            // The initial state while waiting for the first emission from the repository.
+            initialValue = ProfileUiState.Loading
         )
 
-        val achievements = listOf(
-            Achievement(
-                id = "first_program",
-                title = "First Program",
-                category = "Beginner",
-                description = "Wrote your first program",
-                progress = "1/1",
-                imageRes = R.drawable.ic_launcher_foreground,
-                starsRes = R.drawable.fivestars,
-                colors = listOf(
-                    Color(android.graphics.Color.parseColor("#4CAF50")),
-                    Color(android.graphics.Color.parseColor("#A5D6A7"))
-                ),
-                isUnlocked = true
-            ),
-            Achievement(
-                id = "week_streak",
-                title = "On Fire",
-                category = "Consistency",
-                description = "Maintained a 7-day streak",
-                progress = "7/7",
-                imageRes = R.drawable.ic_launcher_foreground,
-                starsRes = R.drawable.fivestars,
-                colors = listOf(
-                    Color(android.graphics.Color.parseColor("#FF9800")),
-                    Color(android.graphics.Color.parseColor("#FFCC80"))
-                ),
-                isUnlocked = true
-            ),
-            Achievement(
-                id = "algorithm_master",
-                title = "Algorithm Master",
-                category = "Advanced",
-                description = "Completed 10 algorithm challenges",
-                progress = "2/10",
-                imageRes = R.drawable.ic_launcher_foreground,
-                starsRes = R.drawable.fivestars,
-                colors = listOf(
-                    Color(android.graphics.Color.parseColor("#2196F3")),
-                    Color(android.graphics.Color.parseColor("#90CAF9"))
-                ),
-                isUnlocked = false
-            )
-        )
+    // Function to initiate the logout process via the repository
+    fun performLogout() {
+        userRepository.logout()
     }
-
+}
