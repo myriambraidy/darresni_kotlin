@@ -112,14 +112,14 @@ fun DailyChallengeScreen(
             ) {
                 if (!isAnswerView) {
                     Text(
-                        text = "Debug and Fix",
+                        text = exercise.title,
                         color = Color.White,
                         fontSize = 22.sp,
                         fontWeight = FontWeight.Bold
                     )
 
                     Text(
-                        text = "Identify and fix errors in the given code with clear, concise explanations",
+                        text = exercise.category,
                         color = Color.LightGray,
                         fontSize = 14.sp,
                         lineHeight = 20.sp,

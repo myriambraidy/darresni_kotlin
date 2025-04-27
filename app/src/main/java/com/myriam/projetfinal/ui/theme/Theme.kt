@@ -1,6 +1,5 @@
 package com.myriam.projetfinal.ui.theme
 
-import android.app.Activity
 import androidx.compose.ui.graphics.Color
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

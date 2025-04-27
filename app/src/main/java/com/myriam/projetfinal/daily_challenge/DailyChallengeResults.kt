@@ -19,6 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
+import androidx.compose.material3.MaterialTheme
 
 @Composable
 fun ResultPopup(score: String, explanation: String, onDismiss: () -> Unit) {
@@ -48,7 +49,7 @@ fun ResultPopup(score: String, explanation: String, onDismiss: () -> Unit) {
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black,
+                color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center
             )
         },
@@ -62,12 +63,12 @@ fun ResultPopup(score: String, explanation: String, onDismiss: () -> Unit) {
                     text = "Score: $score",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = Color.Black
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
                     text = explanation,
                     fontSize = 16.sp,
-                    color = Color.Gray,
+                    color = MaterialTheme.colorScheme.primary ,
                     textAlign = TextAlign.Center
                 )
             }
