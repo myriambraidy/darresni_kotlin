@@ -19,7 +19,7 @@ class DailyChallengeViewModel : ViewModel() {
                     "}\n",
             id = "43",
             imageRes = R.drawable.cpplogo,
-            starsRes = R.drawable.fivestars,
+            starsRes = R.drawable.cpplogo,
             accentColor = Color(android.graphics.Color.parseColor("#F0F0F0"))
         )
     )

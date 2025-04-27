@@ -171,6 +171,7 @@ fun ExerciseDetails(
                     "Good job! You've fixed most of the bugs, but some edge cases are still failing.",
             onDismiss = {
                 showPopup.value = false
+                nav.navigate("main")
             }
         )
     }

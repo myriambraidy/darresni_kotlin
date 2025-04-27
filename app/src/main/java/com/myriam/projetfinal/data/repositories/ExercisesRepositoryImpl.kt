@@ -19,7 +19,7 @@ class ExercisesRepositoryImpl: ExercisesRepository {
                     "}\n",
             id = "43",
             imageRes = R.drawable.cpplogo,
-            starsRes = R.drawable.fivestars,
+            starsRes = R.drawable.cpplogo,
             accentColor = Color.Magenta
         ),
         Exercise(
@@ -36,7 +36,7 @@ class ExercisesRepositoryImpl: ExercisesRepository {
                     "}\n",
             id = "23",
             imageRes = R.drawable.cpplogo,
-            starsRes = R.drawable.fivestars,
+            starsRes = R.drawable.cpplogo,
             accentColor = Color.Green
         ),
         Exercise(
@@ -52,7 +52,7 @@ class ExercisesRepositoryImpl: ExercisesRepository {
                     "}\n",
             id = "15",
             imageRes = R.drawable.cpplogo,
-            starsRes = R.drawable.fivestars,
+            starsRes = R.drawable.cpplogo,
             accentColor = Color.Cyan
         )
     )

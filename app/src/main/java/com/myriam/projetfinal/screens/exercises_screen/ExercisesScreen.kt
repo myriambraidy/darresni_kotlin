@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -20,7 +18,6 @@ import androidx.navigation.NavController
 import com.myriam.projetfinal.components.ScreenHeader
 import com.myriam.projetfinal.screens.exercises_screen.components.CategoryTitle
 import com.myriam.projetfinal.screens.exercises_screen.sections.HorizontalScrollSection
-import com.myriam.projetfinal.screens.exercises_screen.components.SearchBar
 
 @Composable
 fun ExercisesScreen(vm: ExerciseViewModel, nav: NavController) {
@@ -34,25 +31,16 @@ fun ExercisesScreen(vm: ExerciseViewModel, nav: NavController) {
             .padding(top = 40.dp)
             .padding(horizontal = 16.dp)
     ) {
+
         ScreenHeader(
             title = "Exercises",
-            icon = Icons.Default.CheckCircle,
-            onIconClick = {
-                // Change Later
-            }
+//            icon = Icons.Default.CheckCircle,
+//            onIconClick = {
+//                // Change Later
+//            }
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
-
-        SearchBar(
-            query = vm.searchQuery,
-            onQueryChange = {
-                vm.searchQuery = it
-                vm.filterExercises(it)
-            }
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
         // Scrollable content in LazyColumn
         LazyColumn(
@@ -62,7 +50,7 @@ fun ExercisesScreen(vm: ExerciseViewModel, nav: NavController) {
             // Code Snippets section
             item {
                 CategoryTitle(
-                    title = "CodeSnippets",
+                    title = "Debugging Exercises",
                     onViewMoreClick = {
                         nav.navigate("codeSnippets")
                     }
