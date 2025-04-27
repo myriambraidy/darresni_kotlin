@@ -71,4 +71,5 @@ dependencies {
     implementation("io.insert-koin:koin-androidx-compose:3.5.0")
     // Add this dependency to your build.gradle file
     implementation("androidx.compose.material:material-icons-extended:1.5.0")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.32.0")
 }

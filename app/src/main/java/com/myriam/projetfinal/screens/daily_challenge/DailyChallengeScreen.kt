@@ -11,7 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -45,161 +47,179 @@ fun DailyChallengeScreen(
     }
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(
-                Brush.verticalGradient(
-                    colors = listOf(
-                        Color(0xFF2D2D2D),
-                        Color(0xFF4F4F4F)
-                    )
-                )
-            )
-            .padding(24.dp)
-            .padding(top = 24.dp)
+        modifier = Modifier.fillMaxSize()
     ) {
-        IconButton(
-            onClick = {
-                nav.popBackStack();
-                answerText = "" },
-            modifier = Modifier.align(Alignment.TopStart)
-        ) {
-            Icon(
-                imageVector = Icons.Default.Close,
-                contentDescription = "Close",
-                tint = Color.White
-            )
-        }
-
-        Column(
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.TopCenter)
-                .padding(top = 32.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            Text(
-                text = getCurrentFormattedDate(),
-                color = Color.White,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold
-            )
+                .matchParentSize()
+                .background(
+                    Brush.linearGradient(
+                        colorStops = arrayOf(
+                            0.0f to Color(0xFF124A49),
+                            0.3f to Color(0xFF022D2C),
+                            0.5f to Color(0xFF1A1A1A),
+                            1.0f to Color(0xFF1A1A1A)
+                        ),
+//                        start = Offset(0f, 0f),
+//                        end = Offset(1000f, 1800f)
+                    )
 
-            Box(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(16.dp))
-                    .background(Color(0xFF705D56))
-                    .padding(horizontal = 16.dp, vertical = 6.dp)
+                )
+                .blur(30.dp),
+
+        )
+
+        // Content
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(24.dp)
+                .padding(top = 24.dp)
+        ) {
+            IconButton(
+                onClick = {
+                    nav.popBackStack()
+                    answerText = ""
+                },
+                modifier = Modifier.align(Alignment.TopStart)
             ) {
-                Text(
-                    text = "daily challenge",
-                    color = Color.White,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    contentDescription = "Close",
+                    tint = Color.White
                 )
             }
 
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 8.dp)
-                    .clip(RoundedCornerShape(24.dp))
-                    .background(Color.White.copy(alpha = 0.08f))
-                    .padding(24.dp),
+                    .align(Alignment.TopCenter)
+                    .padding(top = 32.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                if (!isAnswerView) {
+                Text(
+                    text = getCurrentFormattedDate(),
+                    color = Color.White,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold
+                )
+
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(Color(0xFF705D56))
+                        .padding(horizontal = 16.dp, vertical = 6.dp)
+                ) {
                     Text(
-                        text = exercise.title,
+                        text = "daily challenge",
                         color = Color.White,
-                        fontSize = 22.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-
-                    Text(
-                        text = exercise.category,
-                        color = Color.LightGray,
                         fontSize = 14.sp,
-                        lineHeight = 20.sp,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(horizontal = 16.dp)
+                        fontWeight = FontWeight.Medium
                     )
+                }
 
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(12.dp))
-                            .background(Color(0xFF1E1E1E))
-                            .padding(16.dp)
-                    ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp)
+                        .clip(RoundedCornerShape(24.dp))
+                        .background(Color.White.copy(alpha = 0.08f))
+                        .padding(24.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    if (!isAnswerView) {
                         Text(
-                            text = exercise.question,
-                            fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
+                            text = exercise.title,
                             color = Color.White,
-                            fontSize = 13.sp,
-                            lineHeight = 18.sp
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                        Text(
+                            text = exercise.category,
+                            color = Color.LightGray,
+                            fontSize = 14.sp,
+                            lineHeight = 20.sp,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(horizontal = 16.dp)
+                        )
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(12.dp))
+                                .background(Color(0xFF1E1E1E))
+                                .padding(16.dp)
+                        ) {
+                            Text(
+                                text = exercise.question,
+                                fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
+                                color = Color.White,
+                                fontSize = 13.sp,
+                                lineHeight = 18.sp
+                            )
+                        }
+
+                        CustomButton(
+                            label = "Start Writing",
+                            onClick = { isAnswerView = true },
+                            width = 250,
+                            height = 45,
+                            variant = ButtonVariant.Default
+                        )
+                    } else {
+                        Text(
+                            text = "Write Your Answer",
+                            color = Color.White,
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                        Text(
+                            text = "Provide your solution and explanation clearly below.",
+                            color = Color.LightGray,
+                            fontSize = 14.sp,
+                            lineHeight = 20.sp,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(horizontal = 16.dp)
+                        )
+
+                        CustomTextField(
+                            value = answerText,
+                            onValueChange = { answerText = it },
+                            placeholder = "Write your code...",
+                            label = ""
+                        )
+
+                        CustomButton(
+                            label = "Back to Question",
+                            onClick = {
+                                isAnswerView = false
+                            },
+                            width = 250,
+                            height = 45,
+                            variant = ButtonVariant.Outline
+                        )
+
+                        CustomButton(
+                            label = "Submit",
+                            onClick = { showPopup.value = true },
+                            width = 250,
+                            height = 45,
+                            variant = ButtonVariant.Default
                         )
                     }
-
-                    CustomButton(
-                        label = "Start Writing",
-                        onClick = { isAnswerView = true },
-                        width = 250,
-                        height = 45,
-                        variant = ButtonVariant.Default
-                    )
-                } else {
-                    Text(
-                        text = "Write Your Answer",
-                        color = Color.White,
-                        fontSize = 22.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-
-                    Text(
-                        text = "Provide your solution and explanation clearly below.",
-                        color = Color.LightGray,
-                        fontSize = 14.sp,
-                        lineHeight = 20.sp,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(horizontal = 16.dp)
-                    )
-
-                    CustomTextField(
-                        value = answerText,
-                        onValueChange = { answerText = it },
-                        placeholder = "Write your code...",
-                        label = ""
-                    )
-
-                    CustomButton(
-                        label = "Back to Question",
-                        onClick = {
-                            isAnswerView = false
-                        },
-                        width = 250,
-                        height = 45,
-                        variant = ButtonVariant.Outline
-                    )
-
-                    CustomButton(
-                        label = "Submit",
-                        onClick = { showPopup.value = true },
-                        width = 250,
-                        height = 45,
-                        variant = ButtonVariant.Default
-                    )
                 }
             }
         }
     }
+
     if (showPopup.value) {
         com.myriam.projetfinal.daily_challenge.ResultPopup(
-            score = "80%", // you can replace this with dynamic logic
-            explanation = "Good job! You’ve fixed most of the bugs, but some edge cases are still failing." +
-                    "Good job! You’ve fixed most of the bugs, but some edge cases are still failing.",
+            score = "80%", // Example static score
+            explanation = "Good job! You’ve fixed most of the bugs, but some edge cases are still failing. Good job! You’ve fixed most of the bugs, but some edge cases are still failing.",
             onDismiss = {
                 showPopup.value = false
                 nav.navigate("main")
