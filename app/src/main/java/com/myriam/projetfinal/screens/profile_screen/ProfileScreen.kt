@@ -1,29 +1,279 @@
-package com.myriam.projetfinal.screens.profile_screen
+package com.myriam.projetfinal.screens.ProfileScreen
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.myriam.projetfinal.components.ScreenHeader
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import com.myriam.projetfinal.data.models.History
+import com.myriam.projetfinal.data.models.User
+import com.myriam.projetfinal.viewmodels.AppRoutes
+import org.koin.androidx.compose.koinViewModel
+// Import the ProfileUiState from its new file
+import com.myriam.projetfinal.screens.profile_screen.ProfileUiState
+// Import for Icon:
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
+
 
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(
+    // Use koinViewModel for dependency injection
+    viewModel: ProfileScreenViewModel = koinViewModel(),
+    // Receive the main NavController for app-level navigation (like logout)
+    appNavController: NavHostController
+) {
+    // Observe the UI state Flow from the ViewModel
+    val uiState by viewModel.uiState.collectAsState()
+
+    // Display UI based on the current state
+    when (val state = uiState) {
+        is ProfileUiState.Loading -> {
+            // Show a loading indicator centered on the screen
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator()
+            }
+        }
+        is ProfileUiState.Success -> {
+            // Data loaded successfully, display the main profile content
+            val user = state.user // Extract user data from the Success state
+            ProfileContent(
+                user = user,
+                viewModel = viewModel, // Pass ViewModel for actions like logout
+                appNavController = appNavController
+            )
+        }
+        is ProfileUiState.Error -> {
+            // Show an error message or a view indicating the user is logged out
+            Box(
+                modifier = Modifier.fillMaxSize().padding(16.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text("Could not load profile or user is logged out.")
+                    Spacer(modifier = Modifier.height(16.dp))
+                    // Provide a way to go back to login
+                    Button(onClick = {
+                        appNavController.navigate(AppRoutes.LOGIN) {
+                            popUpTo(AppRoutes.MAIN) { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    }) {
+                        Text("Go to Login")
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun ProfileContent(
+    user: User,
+    viewModel: ProfileScreenViewModel,
+    appNavController: NavHostController
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFF7F7F7))
-            .padding(16.dp)
-            .padding(top = 40.dp)
-            .padding(horizontal = 16.dp)
+            .background(Color.White) // Or your desired background
     ) {
-        ScreenHeader(title = "Welcome", icon = Icons.Default.Settings)
+        // Non-Scrolling Header Section
+        HeaderSectionProfileRedesigned(userProfile = user)
 
+        // Scrollable Content Section
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f) // Ensure LazyColumn takes up remaining space
+                .padding(horizontal = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally // Center items like Button
+        ) {
+            item { Spacer(modifier = Modifier.height(24.dp)) } // Space below header
 
+            // Stats Section
+            item {
+                StatsSectionProfile(userProfile = user)
+                Spacer(modifier = Modifier.height(32.dp))
+            }
+
+            // User History Section
+            item {
+                UserHistorySection(historyItems = user.history) // Get history from User object
+                Spacer(modifier = Modifier.height(32.dp))
+            }
+
+            // Sign Out Button
+            item {
+                Button(
+                    onClick = {
+                        // Trigger logout logic in ViewModel -> Repository
+                        viewModel.performLogout()
+                        // Navigate back to Login screen using the main NavController
+                        appNavController.navigate(AppRoutes.LOGIN) {
+                            // Clear the back stack up to the main authenticated section
+                            popUpTo(AppRoutes.MAIN) { inclusive = true }
+                            // Avoid multiple instances of the login screen
+                            launchSingleTop = true
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth(0.8f) // Make button slightly less wide
+                        .padding(vertical = 16.dp),
+                    // Use error color scheme for logout button
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+                ) {
+                    Text("Sign Out")
+                }
+                Spacer(modifier = Modifier.height(16.dp)) // Bottom padding
+            }
+        }
     }
 }
+
+
+// ==================================================
+// Placeholder/Example Component Implementations
+// (Ensure these match your actual component needs)
+// ==================================================
+
+@Composable
+fun HeaderSectionProfileRedesigned(userProfile: User) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(220.dp) // Adjusted height slightly
+            .background(
+                Brush.verticalGradient(
+                    colors = userProfile.colors.ifEmpty { listOf(Color.DarkGray, Color.Gray) }
+                )
+            )
+            .padding(16.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            // TODO: Replace with actual image loading (Coil/Glide) or keep placeholder
+            // if (userProfile.profileImageRes != null) {
+            //     Image(painterResource(userProfile.profileImageRes), ...)
+            // } else {
+            Icon(Icons.Filled.AccountCircle, contentDescription = "Profile", tint=Color.White, modifier = Modifier.size(80.dp))
+            // }
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = userProfile.username,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = "Level ${userProfile.level}",
+                fontSize = 18.sp,
+                color = Color.White.copy(alpha = 0.9f)
+            )
+        }
+    }
+}
+
+@Composable
+fun UserHistorySection(historyItems: List<History>) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Text(
+            text = "Recent Activity",
+            style = MaterialTheme.typography.titleMedium, // Adjusted style
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(bottom = 12.dp)
+        )
+        if (historyItems.isEmpty()) {
+            Text(
+                text="No recent activity found.",
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
+        } else {
+            // Use LazyColumn's items extension for efficiency if list can be long
+            historyItems.forEach { item ->
+                HistoryItemCard(item = item)
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+            // Example using items extension (if historyItems can be large):
+            // items(historyItems, key = { it.id }) { item ->
+            //     HistoryItemCard(item = item)
+            //     Spacer(modifier = Modifier.height(8.dp))
+            // }
+        }
+    }
+}
+
+
+@Composable
+fun HistoryItemCard(item: History) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp), // Subtle elevation
+        colors = CardDefaults.cardColors(
+            // Slightly color based on success/failure
+            containerColor = if(item.success) Color(0xFFE8F5E9) else Color(0xFFFFF0F0)
+        )
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = item.description,
+                modifier = Modifier.weight(1f).padding(end = 8.dp),
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Text(
+                text = item.date,
+                style = MaterialTheme.typography.bodySmall,
+                color = Color.Gray
+            )
+        }
+    }
+}
+
+@Composable
+fun StatsSectionProfile(userProfile: User) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Text(
+            text = "Statistics",
+            style = MaterialTheme.typography.titleMedium, // Adjusted style
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(bottom=12.dp)
+        )
+        // Simple Row for stats, could be more complex layout
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceAround // Example layout
+        ) {
+            StatItem("Days Active", userProfile.daysActive.toString())
+            StatItem("Total XP", userProfile.totalXp.toString())
+            // Add more StatItems if needed
+        }
+    }
+}
+
+// Helper composable for individual stats
+@Composable
+fun StatItem(label: String, value: String) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(text = value, style = MaterialTheme.typography.headlineSmall)
+        Text(text = label, style = MaterialTheme.typography.bodySmall, color = Color.Gray)
+    }
+}
+
