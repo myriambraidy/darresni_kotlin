@@ -1,6 +1,7 @@
 package com.myriam.projetfinal.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -21,6 +22,8 @@ fun CustomTextField(
         placeholder = { Text(text = placeholder) },
         modifier = modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .height(200.dp)
+            .padding(8.dp),
+        shape = RoundedCornerShape(16.dp)
         )
 }

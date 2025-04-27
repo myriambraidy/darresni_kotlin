@@ -58,7 +58,7 @@ fun ExerciseCard(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .height(180.dp) // 🔒 Fixed height
+            .height(180.dp)
             .padding(12.dp)
             .clickable { onClick() },
         shape = RoundedCornerShape(20.dp),

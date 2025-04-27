@@ -31,8 +31,8 @@ fun HomeScreen(vm: HomeScreenViewModel, appNav: NavController) {
 
     val homeNavController = rememberNavController()
 
-    NavHost(homeNavController, startDestination = "home") {
-        composable("home") {
+    NavHost(homeNavController, startDestination = "main") {
+        composable("main") {
             HomeContent(vm, homeNavController, appNav)
         }
 
