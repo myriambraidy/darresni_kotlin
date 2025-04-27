@@ -51,7 +51,7 @@ fun ScreenHeader(
                     text = title,
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.Black
+                    color = Color.White
                 )
             }
 
