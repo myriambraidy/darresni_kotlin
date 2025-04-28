@@ -82,7 +82,6 @@ fun ExerciseCard(
                 .padding(16.dp)
         ) {
             Column(modifier = Modifier.fillMaxSize()) {
-                // Top Row: Icon + Title + Stars + Play
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.fillMaxWidth()
@@ -109,7 +108,7 @@ fun ExerciseCard(
                             .padding(start = 12.dp)
                     ) {
                         Text(
-                            text = title,
+                            text = title ,
                             color = textColor,
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
@@ -131,34 +130,17 @@ fun ExerciseCard(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                // Description at the bottom
+
                 Text(
-                    text = description,
+                    text = description  ,
                     color = textColor.copy(alpha = 0.95f),
                     fontSize = 14.sp,
-                    maxLines = 3, // ✂ Limit to 3 lines
+                    maxLines = 3,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.weight(1f, fill = false)
                 )
             }
 
-            // ID Badge
-//            Box(
-//                modifier = Modifier
-//                    .align(Alignment.TopEnd)
-//                    .padding(6.dp)
-//                    .background(glassBackgroundColor, CircleShape)
-//                    .border(1.dp, glassBorderColor, CircleShape)
-//                    .size(30.dp),
-//                contentAlignment = Alignment.Center
-//            ) {
-//                Text(
-//                    text = id,
-//                    color = textColor,
-//                    fontWeight = FontWeight.Bold,
-//                    fontSize = 12.sp
-//                )
-//            }
         }
     }
 }
@@ -166,10 +148,10 @@ fun ExerciseCard(
 @Composable
 fun getLanguageColor(lang: String): Color {
     return when (lang.lowercase()) {
-        "python" -> Color(0xFF306998) // Python Blue
-        "cpp", "c++" -> Color(0xFF00599C) // C++ Blue
-        "javascript", "js" -> Color(0xFFF7DF1E) // JavaScript Yellow
-        else -> Color.Gray // Default color
+        "python" -> Color(0xFF3A83BD) // Python Blue
+        "cpp", "c++" -> Color(0xFF002846) // C++ Blue
+        "javascript", "js" -> Color(0xFFF7DF1E)
+        else -> Color.Gray
     }
 }
 

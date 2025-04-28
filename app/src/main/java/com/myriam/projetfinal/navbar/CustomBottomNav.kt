@@ -24,7 +24,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -41,7 +43,7 @@ fun CustomBottomNav(navController: NavController, tabs: List<TabItem>) {
         Modifier
             .fillMaxWidth()
             .height(80.dp)
-            .background(Color(0xFF262626))
+            .background(Color(0xFF0505))
     ) {
         Row(
             modifier = Modifier

@@ -1,6 +1,7 @@
 package com.myriam.projetfinal.screens.login_screen
 
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -14,7 +15,11 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -24,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lint.kotlin.metadata.Visibility
 import androidx.navigation.NavController
+import com.myriam.projetfinal.R
 import com.myriam.projetfinal.viewmodels.AppRoutes
 import kotlin.math.log
 
@@ -52,10 +58,29 @@ fun LoginScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             // App Logo or Title
+            val gradientColors = listOf(
+                Color(0xFFFC5F5F),
+                Color(0xFFDC143C),
+                Color(0xFF8B0000)
+            )
+
+            Image(
+                painter = painterResource(id = R.drawable.darresni),
+                contentDescription = "App Logo",
+                modifier = Modifier
+                    .size(100.dp)
+            )
+
             Text(
                 text = "Darresni",
                 fontSize = 30.sp,
-                color = MaterialTheme.colorScheme.primary
+                style = TextStyle(
+                    brush = Brush.linearGradient(
+                        colors = gradientColors,
+                        start = Offset(0f, 0f),
+                        end = Offset.Infinite
+                    )
+                )
             )
 
             Spacer(modifier = Modifier.height(32.dp))

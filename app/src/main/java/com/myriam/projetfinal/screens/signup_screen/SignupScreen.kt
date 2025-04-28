@@ -1,21 +1,32 @@
 package com.myriam.projetfinal.screens.signup_screen
 
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -25,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.myriam.projetfinal.viewmodels.AppRoutes
+import com.myriam.projetfinal.R
 
 @Composable
 fun SignupScreen(
@@ -54,18 +66,32 @@ fun SignupScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             // App Logo or Title
-            Text(
+            val gradientColors = listOf(
+                Color(0xFFFC5F5F),
+                Color(0xFFDC143C),
+                Color(0xFF8B0000)
+            )
+
+            Image(
+                painter = painterResource(id = R.drawable.darresni),
+                contentDescription = "App Logo",
+                modifier = Modifier
+                    .size(100.dp)
+            )
+
+            androidx.compose.material3.Text(
                 text = "Darresni",
                 fontSize = 30.sp,
-                color = MaterialTheme.colors.primary
+                style = TextStyle(
+                    brush = Brush.linearGradient(
+                        colors = gradientColors,
+                        start = Offset(0f, 0f),
+                        end = Offset.Infinite
+                    )
+                )
             )
 
-            Text(
-                text = "Create an Account",
-                fontSize = 20.sp
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(32.dp)) // Adjusted to match the LoginScreen spacing
 
             // Username Input
             OutlinedTextField(
@@ -173,7 +199,7 @@ fun SignupScreen(
                 Text("Sign Up", fontSize = 16.sp)
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(24.dp)) // Adjusted to match the LoginScreen spacing
 
             // Login Text
             Row(
@@ -181,9 +207,9 @@ fun SignupScreen(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("Already have an account?")
+                Text("Already have an account?", color = Color.White)
                 TextButton(onClick = { navController.navigateUp() }) {
-                    Text("Login", color = MaterialTheme.colors.primary)
+                    Text("Login", color = androidx.compose.material3.MaterialTheme.colorScheme.primary)
                 }
             }
         }

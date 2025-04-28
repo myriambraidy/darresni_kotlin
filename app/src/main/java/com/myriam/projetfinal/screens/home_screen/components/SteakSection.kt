@@ -25,12 +25,11 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun StreakSection() {
-    // Define colors for gradient border (similar to DailySection or different)
-    val borderGradient = Brush.linearGradient(listOf(Color(0xFF8338EC), Color(0xFF3A86FF))) // Example: Purple to Blue
+    val borderGradient = Brush.linearGradient(listOf(Color(0xFF9C27B0), Color(0xFF00BCD4)))
     val backgroundGradient = Brush.verticalGradient(
         colors = listOf(
-            Color(0xFF2A2A40).copy(alpha = 0.4f), // Darker purple/blue tint start
-            Color(0xFF1A1A2E).copy(alpha = 0.9f)  // Darker purple/blue tint end
+            Color(0xFF2A2A40).copy(alpha = 0.4f),
+            Color(0xFF1A1A2E).copy(alpha = 0.5f)
         )
     )
     val cornerRadius = 16.dp
@@ -54,32 +53,29 @@ fun StreakSection() {
                         shape = RoundedCornerShape(cornerRadius)
                         clip = true
                     }
-                    .background(backgroundGradient) // Apply the gradient
-                    .background(Color.White.copy(alpha = 0.15f)) // Frosted glass overlay
-                    .blur(16.dp) // Apply blur to this background layer
-                    // Add padding *here* to define the content area size
-                    // The background effect will fill this padded area.
+                    .background(backgroundGradient)
+                    .background(Color.White.copy(alpha = 0.15f))
+                    .blur(16.dp)
+
                     .padding(horizontal = 24.dp, vertical = 16.dp)
             )
 
-            // Content Column (drawn on top of the background effect)
+
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                // Apply padding again directly to the content column if the background
-                // padding wasn't sufficient or if you removed the inner Box padding.
                 modifier = Modifier.padding(horizontal = 24.dp, vertical = 16.dp)
             ) {
                 Text(
-                    "Current Streak: 3", // Replace with actual data later
+                    "Current Streak: 3",
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
-                    color = Color.White // Use light text color
+                    color = Color.White
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    "🏆 Longest Streak: 5", // Replace with actual data later
+                    "🏆 Longest Streak: 5",
                     fontSize = 14.sp,
-                    color = Color(0xFFB0B0B0) // Use secondary light text color
+                    color = Color(0xFFB0B0B0)
                 )
             }
         }
