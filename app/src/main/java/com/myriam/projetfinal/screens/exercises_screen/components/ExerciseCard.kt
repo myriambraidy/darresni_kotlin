@@ -117,7 +117,7 @@ fun ExerciseCard(
                             overflow = TextOverflow.Ellipsis
                         )
                         Row {
-                            for (i in 1..5) {
+                            for (i in 0..<difficulty) {
                                 Icon(
                                     imageVector = Icons.Filled.Star,
                                     contentDescription = null,
@@ -143,22 +143,22 @@ fun ExerciseCard(
             }
 
             // ID Badge
-            Box(
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .padding(6.dp)
-                    .background(glassBackgroundColor, CircleShape)
-                    .border(1.dp, glassBorderColor, CircleShape)
-                    .size(30.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = id,
-                    color = textColor,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 12.sp
-                )
-            }
+//            Box(
+//                modifier = Modifier
+//                    .align(Alignment.TopEnd)
+//                    .padding(6.dp)
+//                    .background(glassBackgroundColor, CircleShape)
+//                    .border(1.dp, glassBorderColor, CircleShape)
+//                    .size(30.dp),
+//                contentAlignment = Alignment.Center
+//            ) {
+//                Text(
+//                    text = id,
+//                    color = textColor,
+//                    fontWeight = FontWeight.Bold,
+//                    fontSize = 12.sp
+//                )
+//            }
         }
     }
 }

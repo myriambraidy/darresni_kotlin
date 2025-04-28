@@ -48,6 +48,7 @@ fun ExerciseList(
                     description = exercise.description,
                     id = exercise.id.toString(),
                     lang = exercise.lang,
+                    difficulty = exercise.difficulty.toInt(),
                     onClick = {
                         navController.navigate("exercise_details")
                         viewModel.selectedExercise = exercise

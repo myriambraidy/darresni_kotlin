@@ -92,6 +92,7 @@ fun HomeContent(vm: HomeScreenViewModel, nav: NavController, appNav: NavControll
                     description = devpick.description,
                     id = devpick.id.toString(),
                     lang = devpick.lang,
+                    difficulty = devpick.difficulty.toInt(),
                     onClick = {
                         vm.selectedDevPick = devpick
                         nav.navigate("devpick_details")

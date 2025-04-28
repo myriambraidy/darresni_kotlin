@@ -32,6 +32,7 @@ fun HorizontalScrollSection(exercises: List<Exercise>, vm: ExerciseViewModel, na
                         description = exercise.description,
                         id = exercise.id.toString(),
                         lang = exercise.lang,
+                        difficulty = exercise.difficulty.toInt(),
                         onClick = {
                             vm.selectedExercise = exercise
                             nav.navigate("exercise_details")
