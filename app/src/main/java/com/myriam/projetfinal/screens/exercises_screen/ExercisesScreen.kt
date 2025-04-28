@@ -9,8 +9,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -21,33 +21,26 @@ import com.myriam.projetfinal.screens.exercises_screen.sections.HorizontalScroll
 
 @Composable
 fun ExercisesScreen(vm: ExerciseViewModel, nav: NavController) {
-    val exercises by vm.exercises.observeAsState(emptyList())
+    val exercises by vm.exercises.collectAsState(initial = emptyList())
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF262626))
             .padding(16.dp)
-//            .padding(top = 40.dp)
             .padding(horizontal = 16.dp)
     ) {
 
         ScreenHeader(
             title = "Exercises",
-//            icon = Icons.Default.CheckCircle,
-//            onIconClick = {
-//                // Change Later
-//            }
         )
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        // Scrollable content in LazyColumn
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            // Code Snippets section
             item {
                 CategoryTitle(
                     title = "Debugging Exercises",
@@ -55,13 +48,10 @@ fun ExercisesScreen(vm: ExerciseViewModel, nav: NavController) {
                         nav.navigate("codeSnippets")
                     }
                 )
-
-                HorizontalScrollSection(exercises = exercises ?: emptyList(), vm = vm, nav = nav)
-
+                HorizontalScrollSection(exercises = exercises, vm = vm, nav = nav)
                 Spacer(modifier = Modifier.height(16.dp))
             }
 
-            // Latest Articles section
             item {
                 CategoryTitle(
                     title = "Latest Articles",
@@ -69,9 +59,7 @@ fun ExercisesScreen(vm: ExerciseViewModel, nav: NavController) {
                         nav.navigate("codeSnippets")
                     }
                 )
-
-                HorizontalScrollSection(exercises = exercises ?: emptyList(), vm = vm, nav = nav)
-
+                HorizontalScrollSection(exercises = exercises, vm = vm, nav = nav)
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }

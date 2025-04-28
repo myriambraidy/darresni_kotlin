@@ -11,6 +11,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme // Keep MaterialTheme import
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -51,6 +53,8 @@ fun HomeContent(vm: HomeScreenViewModel, nav: NavController, appNav: NavControll
     val darkBackground = Color(0xFF262626) // Dark gray background
     val primaryTextColor = Color.White
     val secondaryTextColor = Color(0xFFB0B0B0) // Lighter gray for secondary text
+    val devPickList by vm.filteredDevPick.collectAsState()
+
 
     Column(
         modifier = Modifier
@@ -80,19 +84,14 @@ fun HomeContent(vm: HomeScreenViewModel, nav: NavController, appNav: NavControll
         )
         Spacer(modifier = Modifier.height(16.dp))
         LazyColumn {
-            items(vm.devsPick) { devpick ->
+            items(devPickList) { devpick ->
                 // Ensure ExerciseCard is adapted for dark mode internally
                 // or pass colors explicitly if the component supports it.
                 ExerciseCard(
-                    painter = painterResource(id = devpick.imageRes),
                     title = devpick.title,
                     description = devpick.description,
-                    id = devpick.id,
-                    accentColor = devpick.accentColor, // Keep specific accent
-                    // Example of passing colors if needed:
-                    // cardColor = Color(0xFF1E1E1E),
-                    // titleColor = primaryTextColor,
-                    // descriptionColor = secondaryTextColor,
+                    id = devpick.id.toString(),
+                    lang = devpick.lang,
                     onClick = {
                         vm.selectedDevPick = devpick
                         nav.navigate("devpick_details")

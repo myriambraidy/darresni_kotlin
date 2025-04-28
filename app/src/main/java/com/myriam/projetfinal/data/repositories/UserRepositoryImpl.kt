@@ -38,7 +38,7 @@ class UserRepositoryImpl(private val apiService: ApiService): UserRepository {
                     if (loginResponse != null && loginResponse.status == "success" && loginResponse.message != null) {
                         val userDto = loginResponse.message.user
                         authToken = loginResponse.message.token // Store token (insecurely here!)
-                        Log.d("UserRepository", "Login successful for $email. Token received.")
+                        Log.d("BRAIDUX", "Login successful for $email. Token received. $authToken")
 
                         // --- Create User object using NEW UserDto ---
                         _currentUser.value = User(
@@ -95,7 +95,7 @@ class UserRepositoryImpl(private val apiService: ApiService): UserRepository {
     }
 
 
-    fun getAuthToken(): String? {
+    override fun getAuthToken(): String? {
         return authToken
     }
 }

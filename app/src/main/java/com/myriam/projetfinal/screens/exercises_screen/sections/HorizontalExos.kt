@@ -28,11 +28,10 @@ fun HorizontalScrollSection(exercises: List<Exercise>, vm: ExerciseViewModel, na
             ) {
                 pair.forEach { exercise ->
                     ExerciseCard(
-                        painter = painterResource(id = exercise.imageRes),
                         title = exercise.title,
                         description = exercise.description,
-                        id = exercise.id,
-                        accentColor = exercise.accentColor,
+                        id = exercise.id.toString(),
+                        lang = exercise.lang,
                         onClick = {
                             vm.selectedExercise = exercise
                             nav.navigate("exercise_details")

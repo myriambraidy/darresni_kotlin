@@ -121,7 +121,7 @@ fun DailyChallengeScreen(vm: DailyChallengeViewModel, nav : NavController) {
                     .padding(16.dp)
             ) {
                 Text(
-                    text = exercise.question,
+                    text = exercise.content,
                     fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
                     color = Color.Black,
                     fontSize = 13.sp,

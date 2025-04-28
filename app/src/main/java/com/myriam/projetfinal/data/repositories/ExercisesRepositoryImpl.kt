@@ -1,67 +1,113 @@
 package com.myriam.projetfinal.data.repositories
 
-import androidx.compose.ui.graphics.Color
-import com.myriam.projetfinal.R
-import com.myriam.projetfinal.data.repositories.interfaces.ExercisesRepository
+import android.net.http.HttpException
+import android.os.Build
+import android.util.Log
+import androidx.annotation.RequiresExtension
 import com.myriam.projetfinal.data.models.Exercise
+import com.myriam.projetfinal.data.network.api.ApiService
+import com.myriam.projetfinal.data.repositories.interfaces.ExercisesRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.withContext
+import java.io.IOException
 
-class ExercisesRepositoryImpl: ExercisesRepository {
-    private val _exercises: List<Exercise> = listOf(
-        Exercise(
-            title = "Java",
-            category = "Explain the error",
-            description = "Explain the error",
-            question = "public class HelloWorld {\n" +
-                    "    public static void main(String[] args) {\n" +
-                    "        // Print Hello, World! to the console\n" +
-                    "        System.out.println(\"Hello, World!\");\n" +
-                    "    }\n" +
-                    "}\n",
-            id = "43",
-            imageRes = R.drawable.cpplogo,
-            starsRes = R.drawable.cpplogo,
-            accentColor = Color.Magenta
-        ),
-        Exercise(
-            title = "Pointers",
-            category = "Cpp - Debug and Fix",
-            description = "Debug and fix the following pointer-related issue.",
-            question = "public class PointerExample {\n" +
-                    "    public static void main(String[] args) {\n" +
-                    "        int a = 10;\n" +
-                    "        int b = a;\n" +
-                    "        b = 20;\n" +
-                    "        System.out.println(\"a = \" + a + \", b = \" + b);\n" +
-                    "    }\n" +
-                    "}\n",
-            id = "23",
-            imageRes = R.drawable.cpplogo,
-            starsRes = R.drawable.cpplogo,
-            accentColor = Color.Green
-        ),
-        Exercise(
-            title = "Algorithms",
-            category = "Sorting implementation",
-            description = "Implement a sorting algorithm and debug it.",
-            question = "public class SortingExample {\n" +
-                    "    public static void main(String[] args) {\n" +
-                    "        int[] arr = {5, 2, 8, 1, 3};\n" +
-                    "        Arrays.sort(arr);\n" +
-                    "        System.out.println(\"Sorted array: \" + Arrays.toString(arr));\n" +
-                    "    }\n" +
-                    "}\n",
-            id = "15",
-            imageRes = R.drawable.cpplogo,
-            starsRes = R.drawable.cpplogo,
-            accentColor = Color.Cyan
-        )
-    )
+class ExercisesRepositoryImpl(
+    private val apiService: ApiService
+) : ExercisesRepository {
+    // Use MutableStateFlow to hold the list of exercises
+    private val _exercises = MutableStateFlow<List<Exercise>>(emptyList())
+    // Expose it as a StateFlow for read-only access from outside
+    override val exercises: StateFlow<List<Exercise>> = _exercises.asStateFlow()
+
+    //Use a backing field for devPick
+    private val _devPick = MutableStateFlow<List<Exercise>>(emptyList())
+    override val devPick: StateFlow<List<Exercise>> = _devPick.asStateFlow()
+
 
     override fun getExercises(): List<Exercise> {
-        return this._exercises
+        return _exercises.value // returns the current value of the StateFlow
     }
 
     override fun getDevPick(): List<Exercise> {
-        return this._exercises.subList(0, 1)
+        return devPick.value
     }
+
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
+    override suspend fun getExercisesFromApi(token: String): List<Exercise> =
+        withContext(Dispatchers.IO) {
+            try {
+                val tokenWithBearer = "Bearer $token"
+                val response = apiService.getExercises(tokenWithBearer)
+                if (response.isSuccessful) {
+                    val exerciseResponse = response.body()
+                    if (exerciseResponse != null && exerciseResponse.status == "success") {
+                        Log.d(
+                            "ExercisesRepositoryImpl",
+                            "Successfully fetched exercises from API"
+                        )
+                        val mappedExercises = exerciseResponse.data.map { exerciseDto ->
+                            Exercise(
+                                id = exerciseDto.id,
+                                title = exerciseDto.title,
+                                description = exerciseDto.description,
+                                content = exerciseDto.content,
+                                contentLink = exerciseDto.content_link ?: "", // Provide a default empty string
+                                difficulty = exerciseDto.difficulty,
+                                exoType = exerciseDto.exo_type,
+                                lang = exerciseDto.lang,
+                                hasAttempted = exerciseDto.hasAttempted
+                            )
+                        }
+                        Log.d("BRAIDUX", "My Data $mappedExercises")
+                        _exercises.value =
+                            mappedExercises // Update the StateFlow's value, triggering recomposition
+                        _devPick.value = if (mappedExercises.count() > 2) mappedExercises.subList(
+                            0,
+                            2
+                        ) else emptyList()
+                        return@withContext mappedExercises
+                    } else {
+                        val errorMessage =
+                            exerciseResponse?.message ?: "Failed to fetch exercises"
+                        Log.e(
+                            "ExercisesRepositoryImpl",
+                            "Failed to fetch exercises from API: $errorMessage"
+                        )
+                        return@withContext emptyList()
+                    }
+                } else {
+                    val errorBody =
+                        response.errorBody()?.string() ?: "Unknown HTTP error"
+                    Log.e(
+                        "ExercisesRepositoryImpl",
+                        "Error fetching exercises from API. Code: ${response.code()}, Body: $errorBody"
+                    )
+                    return@withContext emptyList()
+                }
+            } catch (e: IOException) {
+                Log.e(
+                    "ExercisesRepositoryImpl",
+                    "Network error fetching exercises from API",
+                    e
+                )
+                return@withContext emptyList()
+            } catch (e: HttpException) {
+                Log.e(
+                    "ExercisesRepositoryImpl",
+                    "HTTP exception fetching exercises from API",
+                    e
+                )
+                return@withContext emptyList()
+            } catch (e: Exception) {
+                Log.e(
+                    "ExercisesRepositoryImpl",
+                    "Unexpected error fetching exercises from API",
+                    e
+                )
+                return@withContext emptyList()
+            }
+        }
 }

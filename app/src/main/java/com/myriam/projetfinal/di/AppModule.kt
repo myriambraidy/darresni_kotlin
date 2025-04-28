@@ -73,10 +73,10 @@ val networkModule = module {
 val appModule = module {
     // Repositories
     single<UserRepository> { UserRepositoryImpl(get()) }
-    single<ExercisesRepository> { ExercisesRepositoryImpl() } // Assuming you have this interface
+    single<ExercisesRepository> { ExercisesRepositoryImpl(get()) } // Assuming you have this interface
 
     // ViewModels
-    viewModel { RootViewModel(get()) }
+    viewModel { RootViewModel(get(), get()) }
     viewModel { ExerciseViewModel(get()) }
     viewModel { HomeScreenViewModel(get()) }
     viewModel { LoginScreenViewModel(get()) }

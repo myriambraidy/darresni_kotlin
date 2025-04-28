@@ -9,18 +9,19 @@ class DailyChallengeViewModel : ViewModel() {
     private val originalExercises = listOf(
         Exercise(
             title = "Java",
-            category = "Explain the error",
+            exoType = "Explain the error",
             description = "Explain the error",
-            question = "public class HelloWorld {\n" +
+            content = "public class HelloWorld {\n" +
                     "    public static void main(String[] args) {\n" +
                     "        // Print Hello, World! to the console\n" +
                     "        System.out.println(\"Hello, World!\");\n" +
                     "    }\n" +
                     "}\n",
-            id = "43",
-            imageRes = R.drawable.cpplogo,
-            starsRes = R.drawable.cpplogo,
-            accentColor = Color(android.graphics.Color.parseColor("#F0F0F0"))
+            id = 43,
+            contentLink = "",
+            lang = "cpp",
+            difficulty = "3",
+            hasAttempted = false
         )
     )
 

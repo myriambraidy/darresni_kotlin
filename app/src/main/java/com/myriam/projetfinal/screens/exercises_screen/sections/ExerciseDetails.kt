@@ -91,7 +91,7 @@ fun ExerciseDetails(
                     )
 
                     Text(
-                        text = exo.category,
+                        text = exo.exoType,
                         color = Color.LightGray,
                         fontSize = 14.sp,
                         lineHeight = 20.sp,
@@ -107,7 +107,7 @@ fun ExerciseDetails(
                             .padding(16.dp)
                     ) {
                         Text(
-                            text = exo.question,
+                            text = exo.content,
                             fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
                             color = Color.White,
                             fontSize = 13.sp,

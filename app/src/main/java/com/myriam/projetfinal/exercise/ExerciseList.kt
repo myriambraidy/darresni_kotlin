@@ -8,6 +8,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -23,7 +24,7 @@ fun ExerciseList(
     navController: NavController,
     modifier: Modifier = Modifier
 ) {
-    val exercises by viewModel.exercises.observeAsState(emptyList())
+    val exercises by viewModel.exercises.collectAsState(initial = emptyList())
     LazyColumn (modifier = modifier
         .fillMaxSize()
     ){
@@ -43,11 +44,10 @@ fun ExerciseList(
         } else {
             items(exercises) { exercise ->
                 ExerciseCard(
-                    painter = painterResource(id = exercise.imageRes),
                     title = exercise.title,
                     description = exercise.description,
-                    id = exercise.id,
-                    accentColor = exercise.accentColor,
+                    id = exercise.id.toString(),
+                    lang = exercise.lang,
                     onClick = {
                         navController.navigate("exercise_details")
                         viewModel.selectedExercise = exercise

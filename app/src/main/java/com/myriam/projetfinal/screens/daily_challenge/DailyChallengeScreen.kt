@@ -138,7 +138,7 @@ fun DailyChallengeScreen(
                         )
 
                         Text(
-                            text = exercise.category,
+                            text = exercise.exoType,
                             color = Color.LightGray,
                             fontSize = 14.sp,
                             lineHeight = 20.sp,
@@ -154,7 +154,7 @@ fun DailyChallengeScreen(
                                 .padding(16.dp)
                         ) {
                             Text(
-                                text = exercise.question,
+                                text = exercise.content,
                                 fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
                                 color = Color.White,
                                 fontSize = 13.sp,

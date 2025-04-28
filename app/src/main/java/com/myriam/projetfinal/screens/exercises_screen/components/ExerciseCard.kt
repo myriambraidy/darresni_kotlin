@@ -29,22 +29,27 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.myriam.projetfinal.R
 
 @Composable
 fun ExerciseCard(
     modifier: Modifier = Modifier,
-    painter: Painter,
     title: String,
     description: String,
     id: String,
     difficulty: Int = 5,
-    accentColor: Color = Color(0xFB13CC02),
+    lang: String,
     onClick: () -> Unit
 ) {
+    // get accent color and painter based on lang
+    val accentColor = getLanguageColor(lang)
+    val painter = getLanguageLogoPainter(lang)
+
     val cardGradient = listOf(
         accentColor.copy(alpha = 0.8f),
         accentColor.copy(alpha = 0.35f)
@@ -156,4 +161,26 @@ fun ExerciseCard(
             }
         }
     }
+}
+
+@Composable
+fun getLanguageColor(lang: String): Color {
+    return when (lang.lowercase()) {
+        "python" -> Color(0xFF306998) // Python Blue
+        "cpp", "c++" -> Color(0xFF00599C) // C++ Blue
+        "javascript", "js" -> Color(0xFFF7DF1E) // JavaScript Yellow
+        else -> Color.Gray // Default color
+    }
+}
+
+// Helper function to get logo painter based on language
+@Composable
+fun getLanguageLogoPainter(lang: String): Painter {
+    val logoResId = when (lang.lowercase()) {
+        "python" -> R.drawable.python_logo // Use your Python logo
+        "cpp", "c++" -> R.drawable.cpplogo   // Use your C++ logo
+        "javascript", "js" -> R.drawable.js_logo    // Use your JS logo
+        else -> R.drawable.default_logo // Default icon
+    }
+    return painterResource(id = logoResId)
 }
