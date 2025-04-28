@@ -1,5 +1,6 @@
 package com.myriam.projetfinal.screens.signup_screen
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -23,6 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.myriam.projetfinal.viewmodels.AppRoutes
 
 @Composable
 fun SignupScreen(
@@ -155,9 +157,10 @@ fun SignupScreen(
             Button(
                 onClick = {
                     viewModel.onSignupClicked {
+                        Log.d("UserRepository", "HEREEEE ")
                         // Navigate to main app flow after successful signup
-                        navController.navigate("mainScreen") {
-                            popUpTo("signupScreen") { inclusive = true }
+                        navController.navigate(AppRoutes.MAIN) {
+                            popUpTo(AppRoutes.SIGNUP) { inclusive = true }
                         }
                     }
                 },

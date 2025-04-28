@@ -5,10 +5,8 @@ import kotlinx.coroutines.flow.StateFlow // Import StateFlow
 
 interface UserRepository {
     val currentUser: StateFlow<User?>
-
     suspend fun login(email: String, pass: String): Boolean
-
+    suspend fun register(username: String, email: String, pass: String): Boolean
     fun logout()
-
     fun getAuthToken(): String?
 }
