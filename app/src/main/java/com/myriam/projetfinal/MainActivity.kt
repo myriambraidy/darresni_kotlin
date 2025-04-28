@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatDelegate
 import com.myriam.projetfinal.di.appModule
+import com.myriam.projetfinal.di.networkModule
 import com.myriam.projetfinal.ui.theme.ProjetFinalTheme
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -23,7 +24,7 @@ class MainActivity : ComponentActivity() {
 
         startKoin{
             androidContext(this@MainActivity)
-            modules(appModule)
+            modules(appModule, networkModule)
         }
 
         setContent {

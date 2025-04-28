@@ -1,5 +1,6 @@
 package com.myriam.projetfinal.screens.login_screen
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,10 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.myriam.projetfinal.data.repositories.interfaces.UserRepository
 import kotlinx.coroutines.launch
 
-// Add UserRepository to constructor
 class LoginScreenViewModel(private val userRepository: UserRepository) : ViewModel() {
-
-    // --- Keep existing LiveData (_email, _password, _isLoginEnabled, _loginError) ---
     private val _email = MutableLiveData<String>("")
     val email: LiveData<String> = _email
     private val _password = MutableLiveData<String>("")
@@ -21,12 +19,11 @@ class LoginScreenViewModel(private val userRepository: UserRepository) : ViewMod
     private val _loginError = MutableLiveData<String>("")
     val loginError: LiveData<String> = _loginError
 
-    // --- Keep existing onEmailChanged, onPasswordChanged, validateLoginForm ---
-    fun onEmailChanged(newEmail: String) { /* ...as before... */
+    fun onEmailChanged(newEmail: String) {
         _email.value = newEmail
         validateLoginForm()
     }
-    fun onPasswordChanged(newPassword: String) { /* ...as before... */
+    fun onPasswordChanged(newPassword: String) {
         _password.value = newPassword
         validateLoginForm()
     }
@@ -51,6 +48,7 @@ class LoginScreenViewModel(private val userRepository: UserRepository) : ViewMod
 
                 if (isLoginSuccessful) {
                     // Let the UI handle navigation
+                    Log.d("UserRepository", "HEREEEEE")
                     onLoginSuccess()
                 } else {
                     _loginError.value = "Invalid email or password" // Error from repo simulation

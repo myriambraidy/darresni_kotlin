@@ -9,7 +9,7 @@ import com.myriam.projetfinal.data.repositories.ExercisesRepositoryImpl
 import com.myriam.projetfinal.data.repositories.interfaces.ExercisesRepository
 
 class HomeScreenViewModel(
-    private val exoRepository: ExercisesRepositoryImpl
+    private val exoRepository: ExercisesRepository
 ): ViewModel() {
     val devsPick = exoRepository.getDevPick()
     val devPick = MutableLiveData<List<Exercise>>()

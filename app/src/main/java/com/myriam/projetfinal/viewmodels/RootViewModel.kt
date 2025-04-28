@@ -1,7 +1,9 @@
 package com.myriam.projetfinal.viewmodels // Or your chosen package
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.myriam.projetfinal.data.repositories.UserRepositoryImpl
 import com.myriam.projetfinal.data.repositories.interfaces.UserRepository
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -20,17 +22,20 @@ class RootViewModel(private val userRepository: UserRepository) : ViewModel() {
     init {
         // Observe the user state from the repository
         viewModelScope.launch {
-            // Add a small delay to prevent flickering if auth state loads instantly
+            // Simulate a short delay for loading state visibility
             kotlinx.coroutines.delay(100)
             userRepository.currentUser
-                // .distinctUntilChanged() // Only react to actual changes
                 .map { user ->
-                    val destination = if (user != null) AppRoutes.MAIN else AppRoutes.LOGIN
-                    InitialAuthState.Determined(destination)
+                    Log.d("UserRepository", "currentUser emitted: $user (initial check)")
+                    if (user != null) {
+                        InitialAuthState.Determined(AppRoutes.MAIN)
+                    } else {
+                        InitialAuthState.Determined(AppRoutes.LOGIN)
+                    }
                 }
                 .collect { state ->
+                    Log.d("UserRepository", "initialAuthState collected (initial): $state")
                     _initialAuthState.value = state
-                    println("RootViewModel: Auth state changed, initial route: ${(state as? InitialAuthState.Determined)?.startDestination}")
                 }
         }
     }

@@ -109,7 +109,7 @@ fun ProfileContent(
 
             // User History Section
             item {
-                UserHistorySection(historyItems = user.history) // Get history from User object
+//                UserHistorySection(historyItems = user.history) // Get history from User object
                 Spacer(modifier = Modifier.height(32.dp))
             }
 
@@ -155,7 +155,7 @@ fun HeaderSectionProfileRedesigned(userProfile: User) {
             .height(220.dp) // Adjusted height slightly
             .background(
                 Brush.verticalGradient(
-                    colors = userProfile.colors.ifEmpty { listOf(Color.DarkGray, Color.Gray) }
+                    colors = listOf(Color.DarkGray, Color.Gray)
                 )
             )
             .padding(16.dp),
@@ -176,11 +176,6 @@ fun HeaderSectionProfileRedesigned(userProfile: User) {
                 color = Color.White
             )
             Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = "Level ${userProfile.level}",
-                fontSize = 18.sp,
-                color = Color.White.copy(alpha = 0.9f)
-            )
         }
     }
 }
@@ -261,8 +256,7 @@ fun StatsSectionProfile(userProfile: User) {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround // Example layout
         ) {
-            StatItem("Days Active", userProfile.daysActive.toString())
-            StatItem("Total XP", userProfile.totalXp.toString())
+            StatItem("Days Active", userProfile.streak.toString())
             // Add more StatItems if needed
         }
     }

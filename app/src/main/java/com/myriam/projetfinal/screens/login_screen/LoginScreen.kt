@@ -1,5 +1,6 @@
 package com.myriam.projetfinal.screens.login_screen
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lint.kotlin.metadata.Visibility
 import androidx.navigation.NavController
 import com.myriam.projetfinal.viewmodels.AppRoutes
+import kotlin.math.log
 
 @Composable
 fun LoginScreen(
@@ -112,10 +114,11 @@ fun LoginScreen(
             Button(
                 onClick = {
                     viewModel.onLoginClicked {
+                        Log.d("UserRepository", "Functionnn")
                         // Navigate to main app flow after successful login
-                        navController.navigate("mainScreen") {
-                            popUpTo("loginScreen") { inclusive = true }
-                        }
+//                        navController.navigate(AppRoutes.MAIN) {
+//                            popUpTo(AppRoutes.LOGIN) { inclusive = true }
+//                        }
                     }
                 },
                 modifier = Modifier
@@ -135,7 +138,7 @@ fun LoginScreen(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("Don't have an account?")
+                Text("Don't have an account?", color = Color.White)
                 TextButton(onClick = { navController.navigate(AppRoutes.SIGNUP) }) {
                     Text("Sign Up", color = MaterialTheme.colorScheme.primary)
                 }

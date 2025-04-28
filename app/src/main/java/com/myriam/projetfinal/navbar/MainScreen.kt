@@ -1,5 +1,6 @@
 package com.myriam.projetfinal.navbar // Or your appropriate package
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -24,6 +25,8 @@ fun MainScreen(appNav: NavHostController) { // Renamed NavController to NavHostC
     // This NavController is for switching between the main bottom tab sections (Home, Exercises, Profile)
     val innerNavController = rememberNavController()
 
+    Log.d("UserRepository", "CAME HERE")
+
     // Get ViewModels needed by screens within this NavHost via Koin
     val homeVM: HomeScreenViewModel = koinViewModel()
     // val exerciseVM: ExerciseViewModel = koinViewModel() // Keep if ExercisesNav needs it passed here
@@ -32,7 +35,6 @@ fun MainScreen(appNav: NavHostController) { // Renamed NavController to NavHostC
     val tabs = listOf(TabItem.Home, TabItem.Exercises, TabItem.Profile)
 
     Scaffold(
-        // Pass the innerNavController to the bottom bar to handle tab selection
         bottomBar = { CustomBottomNav(innerNavController, tabs) }
     ) { paddingValues ->
         // This NavHost manages the content displayed *above* the bottom bar,

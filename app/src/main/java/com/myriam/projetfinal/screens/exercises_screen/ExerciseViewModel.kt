@@ -4,9 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.myriam.projetfinal.data.models.Exercise
 import com.myriam.projetfinal.data.repositories.ExercisesRepositoryImpl
+import com.myriam.projetfinal.data.repositories.interfaces.ExercisesRepository
 
 class ExerciseViewModel(
-    private val exoRepo: ExercisesRepositoryImpl
+    private val exoRepo: ExercisesRepository
 ): ViewModel() {
     private val originalExercises = exoRepo.getExercises()
 

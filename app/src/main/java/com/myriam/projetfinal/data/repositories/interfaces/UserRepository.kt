@@ -9,6 +9,4 @@ interface UserRepository {
     suspend fun login(email: String, pass: String): Boolean
 
     fun logout()
-
-
 }
