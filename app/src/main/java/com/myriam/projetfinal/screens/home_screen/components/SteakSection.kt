@@ -56,24 +56,22 @@ fun StreakSection() {
                     .background(backgroundGradient)
                     .background(Color.White.copy(alpha = 0.15f))
                     .blur(16.dp)
-
                     .padding(horizontal = 24.dp, vertical = 16.dp)
             )
-
 
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.padding(horizontal = 24.dp, vertical = 16.dp)
             ) {
                 Text(
-                    "Current Streak: 3",
+                    "Current Streak: 0",
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
                     color = Color.White
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    "🏆 Longest Streak: 5",
+                    "🏆 Longest Streak: 0",
                     fontSize = 14.sp,
                     color = Color(0xFFB0B0B0)
                 )

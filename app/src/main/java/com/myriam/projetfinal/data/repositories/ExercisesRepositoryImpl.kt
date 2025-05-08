@@ -6,6 +6,8 @@ import android.util.Log
 import androidx.annotation.RequiresExtension
 import com.myriam.projetfinal.data.models.Exercise
 import com.myriam.projetfinal.data.network.api.ApiService
+import com.myriam.projetfinal.data.network.dto.CorrectionData
+import com.myriam.projetfinal.data.network.dto.CorrectionRequest
 import com.myriam.projetfinal.data.repositories.interfaces.ExercisesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,6 +21,7 @@ class ExercisesRepositoryImpl(
 ) : ExercisesRepository {
     // Use MutableStateFlow to hold the list of exercises
     private val _exercises = MutableStateFlow<List<Exercise>>(emptyList())
+
     // Expose it as a StateFlow for read-only access from outside
     override val exercises: StateFlow<List<Exercise>> = _exercises.asStateFlow()
 
@@ -54,7 +57,8 @@ class ExercisesRepositoryImpl(
                                 title = exerciseDto.title,
                                 description = exerciseDto.description,
                                 content = exerciseDto.content,
-                                contentLink = exerciseDto.content_link ?: "", // Provide a default empty string
+                                contentLink = exerciseDto.content_link
+                                    ?: "", // Provide a default empty string
                                 difficulty = exerciseDto.difficulty,
                                 exoType = exerciseDto.exo_type,
                                 lang = exerciseDto.lang,
@@ -108,6 +112,67 @@ class ExercisesRepositoryImpl(
                     e
                 )
                 return@withContext emptyList()
+            }
+        }
+
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
+    override suspend fun correctExercise(token: String, exerciseId: Int, userAnswer: String): CorrectionData? =
+        withContext(Dispatchers.IO) {
+            try {
+                val tokenWithBearer = "Bearer $token"
+                val correctionRequest = CorrectionRequest(
+                    exerciseId = exerciseId,
+                    userAnswer = userAnswer
+                )
+
+                Log.d("ExercisesRepositoryImpl", "Attempting to correct exercise with ID: $exerciseId")
+                val response = apiService.correctExercise(correctionRequest, tokenWithBearer)
+
+                if (response.isSuccessful) {
+                    val correctionResponse = response.body()
+                    if (correctionResponse != null && correctionResponse.status == "success") {
+                        Log.d(
+                            "ExercisesRepositoryImpl",
+                            "Successfully corrected exercise: Score ${correctionResponse.data.score}"
+                        )
+                        return@withContext correctionResponse.data
+                    } else {
+                        val errorMessage = correctionResponse?.message ?: "Failed to correct exercise"
+                        Log.e(
+                            "ExercisesRepositoryImpl",
+                            "Failed to correct exercise: $errorMessage"
+                        )
+                        return@withContext null
+                    }
+                } else {
+                    val errorBody = response.errorBody()?.string() ?: "Unknown HTTP error"
+                    Log.e(
+                        "ExercisesRepositoryImpl",
+                        "Error correcting exercise. Code: ${response.code()}, Body: $errorBody"
+                    )
+                    return@withContext null
+                }
+            } catch (e: IOException) {
+                Log.e(
+                    "ExercisesRepositoryImpl",
+                    "Network error correcting exercise",
+                    e
+                )
+                return@withContext null
+            } catch (e: HttpException) {
+                Log.e(
+                    "ExercisesRepositoryImpl",
+                    "HTTP exception correcting exercise",
+                    e
+                )
+                return@withContext null
+            } catch (e: Exception) {
+                Log.e(
+                    "ExercisesRepositoryImpl",
+                    "Unexpected error correcting exercise",
+                    e
+                )
+                return@withContext null
             }
         }
 }

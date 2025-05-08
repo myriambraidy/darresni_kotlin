@@ -2,6 +2,7 @@ package com.myriam.projetfinal.screens.signup_screen
 
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -22,6 +23,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -56,12 +58,29 @@ fun SignupScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+//            .padding(16.dp)
     ) {
+        Box(
+            modifier = Modifier
+                .matchParentSize()
+                .background(
+                    Brush.linearGradient(
+                        colorStops = arrayOf(
+                            0.0f to Color(0xFFFC5F5F),
+                            0.3f to Color(0xFF022D2C),
+//                            0.5f to Color(0xFF151515),
+                            1.0f to Color(0xFF101010)
+                        )
+                    )
+                )
+                .blur(30.dp),
+        )
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .align(Alignment.Center),
+                .align(Alignment.Center)
+                .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
@@ -71,6 +90,7 @@ fun SignupScreen(
                 Color(0xFFDC143C),
                 Color(0xFF8B0000)
             )
+
 
             Image(
                 painter = painterResource(id = R.drawable.darresni),

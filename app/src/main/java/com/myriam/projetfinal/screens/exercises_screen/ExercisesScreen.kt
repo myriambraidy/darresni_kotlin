@@ -48,18 +48,18 @@ fun ExercisesScreen(vm: ExerciseViewModel, nav: NavController) {
                         nav.navigate("codeSnippets")
                     }
                 )
-                HorizontalScrollSection(exercises = exercises, vm = vm, nav = nav)
+                HorizontalScrollSection(exercises = exercises.filter { it.exoType == "Debugging" }, vm = vm, nav = nav)
                 Spacer(modifier = Modifier.height(16.dp))
             }
 
             item {
                 CategoryTitle(
-                    title = "Latest Articles",
+                    title = "\"Explain this\"",
                     onViewMoreClick = {
                         nav.navigate("codeSnippets")
                     }
                 )
-                HorizontalScrollSection(exercises = exercises, vm = vm, nav = nav)
+                HorizontalScrollSection(exercises = exercises.filter { it.exoType == "Explain" }, vm = vm, nav = nav)
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }

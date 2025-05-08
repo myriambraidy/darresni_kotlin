@@ -81,6 +81,6 @@ val appModule = module {
     viewModel { HomeScreenViewModel(get()) }
     viewModel { LoginScreenViewModel(get()) }
     viewModel { SignupScreenViewModel(get()) }
-    viewModel { DailyChallengeViewModel(/* inject dependencies here using get() */) }
+    viewModel { DailyChallengeViewModel(get(), get()) }
     viewModel { ProfileScreenViewModel(get()) }
 }

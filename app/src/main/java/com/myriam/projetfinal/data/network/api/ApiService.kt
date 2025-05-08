@@ -1,5 +1,7 @@
 package com.myriam.projetfinal.data.network.api
 
+import com.myriam.projetfinal.data.network.dto.CorrectionRequest
+import com.myriam.projetfinal.data.network.dto.CorrectionResponse
 import com.myriam.projetfinal.data.network.dto.ExerciseResponse
 import com.myriam.projetfinal.data.network.dto.LoginRequest
 import com.myriam.projetfinal.data.network.dto.LoginResponse
@@ -12,8 +14,7 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface ApiService {
-    // Assuming your login endpoint is at "api/auth/login" relative to your base URL
-    @POST("users/login") // Replace with your actual endpoint path
+    @POST("users/login")
     suspend fun login(@Body request: LoginRequest): Response<LoginResponse>
 
     // Registration Endpoint
@@ -23,4 +24,10 @@ interface ApiService {
 
     @GET("exercises")
     suspend fun getExercises(@Header("Authorization") token: String): Response<ExerciseResponse>
+
+    @POST("exercises/correct")
+    suspend fun correctExercise(
+        @Body correctionRequest: CorrectionRequest,
+        @Header("Authorization") token: String
+    ): Response<CorrectionResponse>
 }

@@ -2,12 +2,18 @@ package com.myriam.projetfinal.daily_challenge
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,66 +26,94 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.myriam.projetfinal.components.ButtonVariant
+import com.myriam.projetfinal.components.CustomButton
 
 @Composable
-fun ResultPopup(score: String, explanation: String, onDismiss: () -> Unit) {
-    val backgroundColor = Color(0xFF262626)
-    val titleColor = Color(0xFF147C7B)
-    val buttonColor = Color(0xFF147C7B)
-
-    Dialog(
-        onDismissRequest = onDismiss,
-        properties = DialogProperties(
-            dismissOnBackPress = false,
-            dismissOnClickOutside = false
-        )
-    ) {
-        Column(
+fun ResultPopup(
+    score: String,
+    explanation: String,
+    onDismiss: () -> Unit
+) {
+    Dialog(onDismissRequest = onDismiss) {
+        Card(
             modifier = Modifier
-                .fillMaxWidth(0.9f)
-                .clip(RoundedCornerShape(20.dp))
-                .background(backgroundColor)
-                .padding(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+                .fillMaxWidth()
+                .padding(16.dp),
+            shape = RoundedCornerShape(16.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = Color(0xFF1A1A1A)
+            )
         ) {
-            Text(
-                text = "Results",
-                fontSize = 22.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-                textAlign = TextAlign.Center
-            )
-            Text(
-                text = "Score: $score",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = titleColor,
-                textAlign = TextAlign.Center
-            )
-            Text(
-                text = explanation,
-                fontSize = 16.sp,
-                color = Color.White,
-                textAlign = TextAlign.Start,
-                modifier = Modifier.padding(top = 8.dp)
-            )
-            Button(
-                onClick = onDismiss,
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = buttonColor,
-                    contentColor = Color.White
-                ),
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 16.dp),
-                shape = RoundedCornerShape(8.dp)
+                    .padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                Text(
-                    text = "Continue",
-//                    fontWeight = FontWeight.Bold,
-                    color = Color.White,
-                    fontSize = 16.sp
+                // Star icon
+                Icon(
+                    imageVector = Icons.Default.Star,
+                    contentDescription = "Star",
+                    tint = Color(0xFFFFC107),
+                    modifier = Modifier.size(50.dp)
+                )
+
+                // Score section
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "Your Score",
+                        color = Color.LightGray,
+                        fontSize = 16.sp
+                    )
+
+                    Text(
+                        text = score,
+                        color = Color.White,
+                        fontSize = 36.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+
+                // Divider
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(1.dp)
+                        .background(Color.Gray.copy(alpha = 0.3f))
+                )
+
+                // Feedback section
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "Feedback",
+                        color = Color.LightGray,
+                        fontSize = 16.sp
+                    )
+
+                    Text(
+                        text = explanation,
+                        color = Color.White,
+                        fontSize = 14.sp,
+                        textAlign = TextAlign.Center,
+                        lineHeight = 20.sp,
+                        modifier = Modifier.padding(top = 8.dp)
+                    )
+                }
+
+                // Continue button
+                CustomButton(
+                    label = "Continue",
+                    onClick = onDismiss,
+                    width = 180,
+                    height = 45,
+                    variant = ButtonVariant.Default
                 )
             }
         }

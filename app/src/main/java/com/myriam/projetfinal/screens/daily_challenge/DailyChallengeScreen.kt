@@ -1,10 +1,13 @@
 package com.myriam.projetfinal.screens.daily_challenge
 
+import android.os.Build
+import androidx.annotation.RequiresExtension
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -13,7 +16,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -25,18 +27,24 @@ import com.myriam.projetfinal.components.ButtonVariant
 import com.myriam.projetfinal.components.CustomButton
 import com.myriam.projetfinal.components.CustomTextField
 import com.myriam.projetfinal.daily_challenge.DailyChallengeViewModel
+import com.myriam.projetfinal.daily_challenge.ResultPopup
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
+@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun DailyChallengeScreen(
     nav: NavController,
     vm: DailyChallengeViewModel
 ) {
     var isAnswerView by remember { mutableStateOf(false) }
-    var answerText by remember { mutableStateOf("") }
     val showPopup = remember { mutableStateOf(false) }
+
+    // Collect states from ViewModel
+    val isLoading by vm.isLoading.collectAsState()
+    val correctionResult by vm.correctionResult.collectAsState()
+    val error by vm.error.collectAsState()
 
     val exercise = vm.getExercise()
 
@@ -44,6 +52,22 @@ fun DailyChallengeScreen(
         val today = LocalDate.now()
         val formatter = DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH)
         return today.format(formatter)
+    }
+
+    // Effect to show popup when correction result is available
+    LaunchedEffect(correctionResult) {
+        if (correctionResult != null) {
+            showPopup.value = true
+        }
+    }
+
+    // Error handling effect
+    LaunchedEffect(error) {
+        if (error != null) {
+            // You could show a toast or snackbar here
+            // For now, we'll just log it
+            println("Error: $error")
+        }
     }
 
     Box(
@@ -59,14 +83,10 @@ fun DailyChallengeScreen(
                             0.3f to Color(0xFF022D2C),
                             0.5f to Color(0xFF1A1A1A),
                             1.0f to Color(0xFF1A1A1A)
-                        ),
-//                        start = Offset(0f, 0f),
-//                        end = Offset(1000f, 1800f)
+                        )
                     )
-
                 )
                 .blur(30.dp),
-
         )
 
         // Content
@@ -79,7 +99,7 @@ fun DailyChallengeScreen(
             IconButton(
                 onClick = {
                     nav.popBackStack()
-                    answerText = ""
+                    vm.userAnswer = ""
                 },
                 modifier = Modifier.align(Alignment.TopStart)
             ) {
@@ -187,8 +207,8 @@ fun DailyChallengeScreen(
                         )
 
                         CustomTextField(
-                            value = answerText,
-                            onValueChange = { answerText = it },
+                            value = vm.userAnswer,
+                            onValueChange = { vm.userAnswer = it },
                             placeholder = "Write your code...",
                             label = ""
                         )
@@ -203,25 +223,33 @@ fun DailyChallengeScreen(
                             variant = ButtonVariant.Outline
                         )
 
-                        CustomButton(
-                            label = "Submit",
-                            onClick = { showPopup.value = true },
-                            width = 250,
-                            height = 45,
-                            variant = ButtonVariant.Default
-                        )
+                        if (isLoading) {
+                            CircularProgressIndicator(
+                                color = Color.White,
+                                modifier = Modifier.size(24.dp)
+                            )
+                        } else {
+                            CustomButton(
+                                label = "Submit",
+                                onClick = { vm.submitAnswer() },
+                                width = 250,
+                                height = 45,
+                                variant = ButtonVariant.Default
+                            )
+                        }
                     }
                 }
             }
         }
     }
 
-    if (showPopup.value) {
-        com.myriam.projetfinal.daily_challenge.ResultPopup(
-            score = "80%", // Example static score
-            explanation = "Good job! You’ve fixed most of the bugs, but some edge cases are still failing. Good job! You’ve fixed most of the bugs, but some edge cases are still failing.",
+    if (showPopup.value && correctionResult != null) {
+        ResultPopup(
+            score = "${correctionResult!!.score}%",
+            explanation = correctionResult!!.feedback,
             onDismiss = {
                 showPopup.value = false
+                vm.clearCorrectionResult()
                 nav.navigate("main")
             }
         )

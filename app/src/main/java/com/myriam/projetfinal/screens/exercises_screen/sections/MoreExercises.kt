@@ -26,7 +26,7 @@ fun MoreExercisesSection(title: String, vm: ExerciseViewModel, nav: NavControlle
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF262626))
+            .background(Color(0xFF0505))
             .padding(16.dp)
             .padding(horizontal = 16.dp)
 

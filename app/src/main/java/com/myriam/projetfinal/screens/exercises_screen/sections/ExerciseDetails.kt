@@ -23,7 +23,6 @@ import com.myriam.projetfinal.components.ButtonVariant
 import com.myriam.projetfinal.components.CustomButton
 import com.myriam.projetfinal.components.CustomTextField
 import com.myriam.projetfinal.data.models.Exercise
-import java.time.LocalDate
 
 @Composable
 fun ExerciseDetails(
@@ -33,7 +32,6 @@ fun ExerciseDetails(
     var isAnswerView by remember { mutableStateOf(false) }
     var answerText by remember { mutableStateOf("") }
     val showPopup = remember { mutableStateOf(false) }
-
 
     Box(
         modifier = Modifier
